@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block main_content %}
+	<main class="home">
+		<img
+			src="{% static 'blog/images/pistoia.jpeg' %}" 
+			alt="Profile picture" 
+			id="profile-pic"
+		>
+		<div class="intro">
+			<p>I'm Alberto Nessi and I'm a web developer based near Milan. Here to share just what I'm doing now, what I'm reading, watching and some interesting quotes.</p>
+		</div>
+	</main>
+{% endblock %}

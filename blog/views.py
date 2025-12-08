@@ -1,6 +1,17 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 
-def index(request):
-    return HttpResponse("Hello!")
+def index(request):	
+    return render(request, 'blog/home.html', {})
+
+
+def now(request):
+    return render(request, 'blog/now.html', {})
+
+
+def reading(request):
+    return render(request, 'blog/reading.html', {})
+
+
+def quotes(request):
+    return render(request, 'blog/quotes.html', {})
