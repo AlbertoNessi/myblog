@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Books, Quotes
 
 
 def index(request):	
@@ -10,8 +11,10 @@ def now(request):
 
 
 def reading(request):
-    return render(request, 'blog/reading.html', {})
+    books = Books.objects.all()
+    return render(request, 'blog/reading.html', {'books': books})
 
 
 def quotes(request):
-    return render(request, 'blog/quotes.html', {})
+    quotes = Quotes.objects.all()
+    return render(request, 'blog/quotes.html', {'quotes': quotes})

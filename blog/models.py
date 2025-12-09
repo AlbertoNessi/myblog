@@ -3,7 +3,7 @@ from django.db import models
 
 class Quotes(models.Model):
     title = models.CharField(max_length=200)
-    subtitle = models.CharField(max_length=100)
+    subtitle = models.CharField(max_length=100, null=True, blank=True)
     date = models.DateTimeField('publishing date')
     text = models.TextField()
     link = models.CharField(max_length=200)
@@ -15,7 +15,7 @@ class Quotes(models.Model):
 
 class Books(models.Model):
     title = models.CharField(max_length=200)
-    subtitle = models.CharField(max_length=100)
+    subtitle = models.CharField(max_length=100, null=True, blank=True)
     link = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
 
