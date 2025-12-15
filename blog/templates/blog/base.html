@@ -25,11 +25,14 @@
 			</nav>
 		</header>
 		{% block main_content %}{% endblock %}
-		<footer>
+		<footer style="display: block; width: 100%;">
 			<nav class="social">
 				<a href="https://www.linkedin.com/in/alberto-nessi/" aria-label="LinkedIn" target="_blank">LinkedIn</a>
 			</nav>
-			<small>&copy; {{ now|date:"Y" }} Alberto Nessi</small>
+
+			<div style="text-align: center">
+				<small>&copy; {{ now|date:"Y" }} Alberto Nessi</small>
+			</div>
 		</footer>  
 	</body>
 	<script src="{% static 'blog/js/change_colors.js' %}"></script>
