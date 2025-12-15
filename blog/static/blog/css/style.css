@@ -178,22 +178,18 @@ footer nav a {
 	}
 }
 
-.social-links a {
-  margin: 0;
-  display: inline-flex;
-  width: 24px;
-  height: 24px;
-  text-decoration: none;
-}
-
-.social-links svg {
+.social svg {
   width: 100%;
   height: 100%;
   fill: #333;
 }
 
-.social-links a:hover svg {
-  fill: #007BFF;
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline dotted;
 }
 
 .page-content {
