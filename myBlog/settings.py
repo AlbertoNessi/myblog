@@ -24,17 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = oSECRET_KEYs.environ.get("DJANGO_DEBUG", "0") == "1"
+DEBUG = os.environ.get("DJANGO_DEBUG", "0") == "1"
 
-ALLOWED_HOSTS = [
-    "albertonessi.it",
-    "www.albertonessi.it",
-]
+ALLOWED_HOSTS = ["albertonessi.it", "www.albertonessi.it"]
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://albertonessi.it",
-    "https://www.albertonessi.it",
-]
+CSRF_TRUSTED_ORIGINS = ["https://albertonessi.it", "https://www.albertonessi.it"]
 
 # Application definition
 
@@ -84,14 +78,12 @@ WSGI_APPLICATION = 'myBlog.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "myblog",
-        "USER": "myblog_user",
-        "PASSWORD": "REPLACE_WITH_LONG_RANDOM_PASSWORD",
-        "HOST": "127.0.0.1",
-        "PORT": "3306",
-        "OPTIONS": {
-            "charset": "utf8mb4",
-        },
+        "NAME": os.environ.get("DB_NAME", "myblog_db"),
+        "USER": os.environ.get("DB_USER", "myblog_user"),
+        "PASSWORD": os.environ["DB_PASSWORD"],
+        "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
+        "PORT": os.environ.get("DB_PORT", "3306"),
+        "OPTIONS": {"charset": "utf8mb4"},
     }
 }
 
@@ -133,12 +125,8 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = "/var/www/myblog/static/"
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = "/var/www/myblog/media/"
-
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_SSL_REDIRECT = True
-
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
