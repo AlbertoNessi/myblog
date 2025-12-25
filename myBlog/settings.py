@@ -23,9 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ma-irs1jplyhgvq9&+b6qhnpweannff=#is06oxt4ogack10ko'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "albertonessi.it",
+    "www.albertonessi.it",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://albertonessi.it",
+    "https://www.albertonessi.it",
+]
 
 
 # Application definition
@@ -37,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'blog.apps.BlogConfig'
+    'blog.apps.BlogConfig'
 ]
 
 MIDDLEWARE = [
@@ -120,6 +128,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
