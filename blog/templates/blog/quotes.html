@@ -8,7 +8,7 @@
 		<ul class="quotes-list">
 			{% for key, quote in quotes %}
 				<a href="quote_{{ key }}">
-					<li class="quote_link" id="quote_link_{{ key }}"></li>
+					<li class="quote_link" id="quote_link_{{ key }}">{{ key }}</li>
 				</a>
 			{% endfor %}
 		</ul>
