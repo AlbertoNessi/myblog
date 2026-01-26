@@ -4,11 +4,20 @@
 {% block title %} Alberto Nessi - Quotes {% endblock %}
 
 {% block main_content %}
+	<div>
+		<ul class="quotes-list">
+			{% for key, quote in quotes %}
+				<a href="quote_{{ key }}">
+					<li class="quote_link" id="quote_link_{{ key }}"></li>
+				</a>
+			{% endfor %}
+		</ul>
+	</div>
 	<main class="page-content">
 		<h1>Interesting Quotes</h1>
 		<ul class="quotes-list">
-			{% for quote in quotes %}
-				<li class="quote_section">
+			{% for key, quote in quotes %}
+				<li class="quote_section" id="quote_{{ key }}">
 					<p class="quote_title">
 						From: <a href="{{ quote.link }}" target="_blank">{{ quote.title }}</a>
 					</p>
