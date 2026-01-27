@@ -4,20 +4,37 @@
 {% block title %} Alberto Nessi - Quotes {% endblock %}
 
 {% block main_content %}
-	<!-- <div>
-		<ul class="quotes-list">
-			{% for key, quote in quotes %}
-				<a href="quote_{{ key }}">
-					<li class="quote_link" id="quote_link_{{ key }}">{{ key }}</li>
-				</a>
+	<div style="margin-left: 100px;">
+		<ul>
+			{% for quote in quotes %}
+				<li
+					class="quote_link hasPopover"
+					data-popover-id="quoteLinkPopover_{{ quote.id }}"
+				>
+					<a
+						href="#quote_{{ quote.id }}"
+						aria-describedby="quoteLinkPopover_{{ quote.id }}"
+					>
+						{{ quote.id }}
+					</a>
+
+					<div
+						popover
+						role="tooltip"
+						class="quoteLinkPopover"
+						id="quoteLinkPopover_{{ quote.id }}"
+					>
+						<p>{{ quote.title }}</p>
+					</div>
+				</li>
 			{% endfor %}
 		</ul>
-	</div> -->
+	</div>
 	<main class="page-content">
 		<h1>Interesting Quotes</h1>
 		<ul class="quotes-list">
-			{% for key, quote in quotes %}
-				<li class="quote_section">
+			{% for quote in quotes %}
+				<li class="quote_section" id="quote_{{ quote.id }}">
 					<p class="quote_title">
 						From: <a href="{{ quote.link }}" target="_blank">{{ quote.title }}</a>
 					</p>
