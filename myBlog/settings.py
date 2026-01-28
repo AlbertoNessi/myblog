@@ -27,13 +27,14 @@ SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 DEBUG = os.environ.get("DJANGO_DEBUG", "0") == "1"
 
 ALLOWED_HOSTS = [
-  "albertonessi.it",
-  "www.albertonessi.it",
-  "127.0.0.1",
-  "localhost",
+    "albertonessi.it",
+    "www.albertonessi.it",
+    "127.0.0.1",
+    "localhost",
 ]
 
-CSRF_TRUSTED_ORIGINS = ["https://albertonessi.it", "https://www.albertonessi.it"]
+CSRF_TRUSTED_ORIGINS = ["https://albertonessi.it",
+                        "https://www.albertonessi.it"]
 
 # Application definition
 
@@ -131,9 +132,16 @@ STATIC_URL = "/static/"
 STATIC_ROOT = "/var/www/myblog/static/"
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+else:
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

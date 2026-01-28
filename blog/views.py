@@ -16,5 +16,7 @@ def reading(request):
 
 
 def quotes(request):
-    quotes = Quotes.objects.all().order_by('-id')
-    return render(request, 'blog/quotes.html', {'quotes': quotes})
+    quotesDesc = Quotes.objects.all().order_by('-id')
+    quotesAsc = Quotes.objects.all().order_by('id')
+
+    return render(request, 'blog/quotes.html', {'quotesDesc': quotesDesc, 'quotesAsc': quotesAsc})

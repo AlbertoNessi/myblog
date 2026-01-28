@@ -26,30 +26,39 @@
     };
 
     const positionPopover = () => {
-      // Position relative to the anchor, not the whole <li>
-      const r = anchor.getBoundingClientRect();
+		const r = anchor.getBoundingClientRect();
 
-      // Popover is in the top layer when open; we position it with fixed coords
-      const pw = pop.offsetWidth;
-      const ph = pop.offsetHeight;
+		// Reset any UA inset-based positioning that can fight your fixed coords.
+		pop.style.inset = "auto";
+		pop.style.right = "";
+		pop.style.bottom = "";
+		pop.style.margin = "0";
+		pop.style.position = "fixed";
 
-      // Default below-left
-      let top = r.bottom + GAP_PX;
-      let left = r.left;
+		// Measure after the popover is open (offsetWidth/Height are fine too)
+		const pw = pop.offsetWidth;
+		const ph = pop.offsetHeight;
 
-      // Clamp horizontally in viewport
-      left = Math.max(GAP_PX, Math.min(left, window.innerWidth - pw - GAP_PX));
+		// 1) Put it just below the anchor
+		let top = r.bottom + GAP_PX;
 
-      // Flip above if it would overflow bottom
-      if (top + ph + GAP_PX > window.innerHeight) {
-        top = r.top - ph - GAP_PX;
-      }
-      top = Math.max(GAP_PX, top);
+		// 2) Center-align popover to anchor
+		let left = r.left + (r.width / 2) - (pw / 2);
 
-      pop.style.position = "fixed";
-      pop.style.top = `${top}px`;
-      pop.style.left = `${left}px`;
-    };
+		// 3) Clamp inside viewport so it never goes off-screen
+		const minLeft = GAP_PX;
+		const maxLeft = window.innerWidth - pw - GAP_PX;
+		left = Math.max(minLeft, Math.min(left, maxLeft));
+
+		// 4) If bottom overflow, flip above (still centered)
+		if (top + ph + GAP_PX > window.innerHeight) {
+			top = r.top - ph - GAP_PX;
+		}
+		top = Math.max(GAP_PX, top);
+
+		pop.style.top = `${top}px`;
+		pop.style.left = `${left}px`;
+	};
 
     const open = () => {
       if (hideTimer) {

@@ -4,12 +4,13 @@
 {% block title %} Alberto Nessi - Quotes {% endblock %}
 
 {% block main_content %}
-	<div style="margin-left: 100px;">
-		<ul>
-			{% for quote in quotes %}
+	<div style="width: 80%; margin-left: auto; margin-right: auto">
+		<ul style="display: flex; justify-content: center;">
+			{% for quote in quotesAsc %}
 				<li
 					class="quote_link hasPopover"
 					data-popover-id="quoteLinkPopover_{{ quote.id }}"
+					style="margin-right: 20px;"
 				>
 					<a
 						href="#quote_{{ quote.id }}"
@@ -17,23 +18,23 @@
 					>
 						{{ quote.id }}
 					</a>
-
-					<div
-						popover
-						role="tooltip"
-						class="quoteLinkPopover"
-						id="quoteLinkPopover_{{ quote.id }}"
-					>
-						<p>{{ quote.title }}</p>
-					</div>
 				</li>
+
+				<div
+					popover
+					role="tooltip"
+					class="quoteLinkPopover"
+					id="quoteLinkPopover_{{ quote.id }}"
+				>
+					<p>{{ quote.title }}</p>
+				</div>
 			{% endfor %}
 		</ul>
 	</div>
 	<main class="page-content">
 		<h1>Interesting Quotes</h1>
 		<ul class="quotes-list">
-			{% for quote in quotes %}
+			{% for quote in quotesDesc %}
 				<li class="quote_section" id="quote_{{ quote.id }}">
 					<p class="quote_title">
 						From: <a href="{{ quote.link }}" target="_blank">{{ quote.title }}</a>
