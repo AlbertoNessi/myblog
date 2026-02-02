@@ -38,9 +38,10 @@
 				<li class="quote_section" id="quote_{{ quote.id }}">
 					<details class="quote_item js-quote-item">
 						<summary class="quote_title">
-							<a href="{{ quote.link }}" target="_blank">{{ quote.title }}</a>
+							{{ quote.title }}
 						</summary>
 						<div class="quote_body">
+							<a class="quote_source" href="{{ quote.link }}" target="_blank">Source</a>
 							{{ quote.text|safe }}
 						</div>
 					</details>

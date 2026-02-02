@@ -44,6 +44,7 @@ body {
 	padding: 0;
 	display: grid;                 /* why: simpler vertical stacking */
 	grid-template-rows: auto 1fr auto;
+	grid-template-columns: 1fr;
 	min-height: 100svh;            /* mobile safe viewport */
 	background-color: var(--bg);
 }
@@ -184,15 +185,18 @@ a {
 }
 
 a:hover {
-  text-decoration: underline dotted;
+  text-decoration: none;
 }
 
 .page-content {
   flex: 1;
   padding: 2rem;
   max-width: 800px;
+  width: 100%;
+  box-sizing: border-box;
   margin: 0 auto;
   margin-bottom: 100px;
+  min-width: 0;
 }
 
 .page-content h1 {
@@ -207,15 +211,24 @@ a:hover {
   list-style: none;
   padding-left: 0;
   padding: 12px 0;
+  width: 100%;
+  max-width: 100%;
+  display: block;
 }
 
 .quotes-list li {
   margin-bottom: 0.5rem;
+  width: 100%;
+  max-width: 100%;
+  display: block;
 }
 
 .quote_section {
 	margin-top: 16px;
 	scroll-margin-top: var(--header-height);
+	width: 100%;
+	max-width: 100%;
+	display: block;
 }
 
 .quote_title {
@@ -228,6 +241,11 @@ a:hover {
 	padding: 12px 16px;
 	cursor: pointer;
 	transition: background-color 150ms ease;
+	width: 100%;
+	box-sizing: border-box;
+	max-width: 100%;
+	display: block;
+	min-width: 0;
 }
 
 .quote_item:hover {
@@ -241,6 +259,9 @@ a:hover {
 	align-items: center;
 	justify-content: space-between;
 	gap: 12px;
+	width: 100%;
+	box-sizing: border-box;
+	min-width: 0;
 }
 
 .quote_item summary::-webkit-details-marker {
@@ -252,6 +273,7 @@ a:hover {
 	font-weight: normal;
 	opacity: 0;
 	transition: opacity 150ms ease;
+	flex: 0 0 auto;
 }
 
 .quote_item:hover summary::after {
@@ -264,6 +286,41 @@ a:hover {
 
 .quote_body {
 	margin-top: 12px;
+	width: 100%;
+	box-sizing: border-box;
+	min-width: 0;
+	overflow-wrap: anywhere;
+	word-break: break-word;
+}
+
+.quote_source {
+	display: inline-block;
+	margin-bottom: 8px;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.quote_source:hover {
+	text-decoration: underline dotted;
+}
+
+.quote_item summary a {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow-wrap: anywhere;
+	word-break: break-word;
+}
+
+.quote_body img,
+.quote_body video,
+.quote_body iframe,
+.quote_body table {
+	max-width: 100%;
+}
+
+.quote_body pre {
+	max-width: 100%;
+	overflow-x: auto;
 }
 
 a {
