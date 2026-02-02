@@ -1,7 +1,8 @@
 :root {
 	--bg: #1D1D1D;     /* background */
 	--fg: #FFD943;     /* text */
-	--link: var(--fg); /* links same as text */
+	--link: var(--fg);   /* links same as text */
+	--header-height: 100px;
 }
 
 :root {
@@ -205,19 +206,64 @@ a:hover {
 .quotes-list {
   list-style: none;
   padding-left: 0;
+  padding: 12px 0;
 }
 
 .quotes-list li {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .quote_section {
-	margin-top: 50px;
+	margin-top: 16px;
+	scroll-margin-top: var(--header-height);
 }
 
 .quote_title {
 	font-weight: bold;
 	font-size: 20px;
+}
+
+.quote_item {
+	border-radius: 8px;
+	padding: 12px 16px;
+	cursor: pointer;
+	transition: background-color 150ms ease;
+}
+
+.quote_item:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.quote_item summary {
+	list-style: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.quote_item summary::-webkit-details-marker {
+	display: none;
+}
+
+.quote_item summary::after {
+	content: "+";
+	font-weight: normal;
+	opacity: 0;
+	transition: opacity 150ms ease;
+}
+
+.quote_item:hover summary::after {
+	opacity: 1;
+}
+
+.quote_item[open] summary::after {
+	content: "−";
+}
+
+.quote_body {
+	margin-top: 12px;
 }
 
 a {

@@ -36,13 +36,30 @@
 		<ul class="quotes-list">
 			{% for quote in quotesDesc %}
 				<li class="quote_section" id="quote_{{ quote.id }}">
-					<p class="quote_title">
-						From: <a href="{{ quote.link }}" target="_blank">{{ quote.title }}</a>
-					</p>
-					{{ quote.text|safe }}
+					<details class="quote_item js-quote-item">
+						<summary class="quote_title">
+							<a href="{{ quote.link }}" target="_blank">{{ quote.title }}</a>
+						</summary>
+						<div class="quote_body">
+							{{ quote.text|safe }}
+						</div>
+					</details>
 				</li>
 			{% endfor %}
 		</ul>
 	</main>
+
+	<script>
+		document.querySelectorAll('.js-quote-item').forEach((item) => {
+			item.addEventListener('click', (event) => {
+				const isLink = event.target.closest('a');
+				if (isLink) {
+					return;
+				}
+				event.preventDefault();
+				item.open = !item.open;
+			});
+		});
+	</script>
 	
 {% endblock %}
