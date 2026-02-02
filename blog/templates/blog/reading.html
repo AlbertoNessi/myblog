@@ -8,10 +8,13 @@
 		<h1>Books I'm reading or that I have read.</h1>
 		<ul>
 			{% for book in books %}
-				<li>
-					<p><strong>{{ book.title }}</strong></p>
+				<li style="margin-bottom: 50px">
+					<p>
+						<a href="{{ book.link }}" target="_blank">
+							<strong>{{ book.title }}</strong>
+						</a>
+					</p>
 					<p>by {{ book.author }}</p>
-					<p><a href="{{ book.link }}" target="_blank">{{ book.author }}</a></p>
 				</li>
 			{% endfor %}
 		</ul>
