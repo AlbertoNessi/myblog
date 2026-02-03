@@ -129,7 +129,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = "/var/www/myblog/static/"
+
+# Keep STATIC_ROOT different for local vs server (otherwise local collectstatic
+# tries to write into /var/www/... which is a server path).
+STATIC_ROOT = (BASE_DIR / "staticfiles") if DEBUG else "/var/www/myblog/static/"
+
+# Django 4.2+ storage configuration
+# - In production: hashed filenames + manifest mapping
+# - In local DEBUG: normal storage (no need to run collectstatic all the time)
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {
+        "BACKEND": (
+            "django.contrib.staticfiles.storage.StaticFilesStorage"
+            if DEBUG
+            else "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+        )
+    },
+}
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
