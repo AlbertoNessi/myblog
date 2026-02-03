@@ -3,12 +3,14 @@
 
 {% block title %} Alberto Nessi - reading {% endblock %}
 
+{% block body_class %}page-reading{% endblock %}
+
 {% block main_content %}
 	<main class="page-content">
 		<h1>Books I'm reading or that I have read.</h1>
-		<ul>
+		<ul class="reading-list">
 			{% for book in books %}
-				<li style="margin-bottom: 50px">
+				<li class="reading-item">
 					<p>
 						<a href="{{ book.link }}" target="_blank">
 							<strong>{{ book.title }}</strong>

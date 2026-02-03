@@ -55,9 +55,75 @@ header {
 	z-index: 1000;
 	background-color: var(--bg);
 	border-bottom: 3px solid currentColor;
+	min-height: var(--header-height);
 }
 
-nav {
+.nav-shell {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	min-height: var(--header-height);
+	width: 100%;
+}
+
+.nav-toggle {
+	position: absolute;
+	left: -9999px;
+}
+
+.nav-toggle-label {
+	display: none;
+	position: absolute;
+	left: var(--space-2);
+	top: 50%;
+	transform: translateY(-50%);
+	width: 36px;
+	height: 28px;
+	cursor: pointer;
+	z-index: 1300;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+	content: "";
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: currentColor;
+	border-radius: 2px;
+	transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.nav-toggle-label span {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.nav-toggle-label span::before {
+	top: -10px;
+}
+
+.nav-toggle-label span::after {
+	top: 10px;
+}
+
+.nav-toggle:checked + .nav-toggle-label span {
+	transform: translateY(-50%) rotate(45deg);
+}
+
+.nav-toggle:checked + .nav-toggle-label span::before {
+	transform: translateY(10px) rotate(90deg);
+}
+
+.nav-toggle:checked + .nav-toggle-label span::after {
+	transform: translateY(-10px) rotate(90deg);
+}
+
+.site-nav {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -68,8 +134,16 @@ nav {
 	-webkit-overflow-scrolling: touch;
 }
 
+.current-nav {
+	display: none;
+}
+
+.menu-nav {
+	display: flex;
+}
+
 /* Tap targets big enough on mobile */
-nav a {
+.site-nav a {
 	text-decoration: none;
 	color: var(--link);
 	font-weight: 700;
@@ -86,6 +160,12 @@ nav a {
 	padding: var(--space-3);
 	text-align: center;
 	align-content: space-evenly;
+}
+
+@media (min-width: 700px) {
+	.home {
+		gap: var(--space-2);
+	}
 }
 
 #profile-pic {
@@ -170,11 +250,11 @@ footer nav a {
 }
 
 @media (min-width: 700px) {
-	nav {
+	.site-nav {
 	  gap: var(--space-3);
 	  flex-wrap: nowrap;
 	}
-	nav a {
+	.site-nav a {
 	  font-size: 20px;
 	  padding: 12px 8px;
 	}
@@ -188,9 +268,50 @@ a:hover {
   text-decoration: none;
 }
 
-header nav a:hover,
+.site-nav a:hover,
 footer nav a:hover {
 	text-decoration: underline dotted;
+}
+
+.site-nav a {
+	position: relative;
+}
+
+body.page-home .site-nav .home_menu_item,
+body.page-now .site-nav .now_menu_item,
+body.page-reading .site-nav .reading_menu_item,
+body.page-quotes .site-nav .quotes_menu_item {
+	text-decoration: underline;
+	text-underline-offset: 6px;
+	text-decoration-thickness: 3px;
+}
+
+body.page-home .site-nav .home_menu_item::after,
+body.page-now .site-nav .now_menu_item::after,
+body.page-reading .site-nav .reading_menu_item::after,
+body.page-quotes .site-nav .quotes_menu_item::after {
+	content: "";
+	display: block;
+	height: 2px;
+	width: 100%;
+	background: currentColor;
+	margin-top: 6px;
+}
+
+@media (max-width: 600px) {
+	body.page-home .site-nav .home_menu_item,
+	body.page-now .site-nav .now_menu_item,
+	body.page-reading .site-nav .reading_menu_item,
+	body.page-quotes .site-nav .quotes_menu_item {
+		text-decoration-thickness: 2px;
+	}
+	body.page-home .site-nav .home_menu_item::after,
+	body.page-now .site-nav .now_menu_item::after,
+	body.page-reading .site-nav .reading_menu_item::after,
+	body.page-quotes .site-nav .quotes_menu_item::after {
+		height: 2px;
+		margin-top: 4px;
+	}
 }
 
 .page-content {
@@ -210,6 +331,37 @@ footer nav a:hover {
 
 .page-content p {
   margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+  .page-content h1 {
+    display: none;
+  }
+}
+
+.reading-list {
+  padding-left: 0;
+  margin: 0;
+}
+
+.reading-item {
+  margin-bottom: 32px;
+}
+
+.quotes-index {
+  width: min(90%, 900px);
+  margin: 0 auto;
+}
+
+.quotes-index-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.quote_link {
+  margin-right: 0;
 }
 
 .quotes-list {
@@ -326,6 +478,112 @@ footer nav a:hover {
 .quote_body pre {
 	max-width: 100%;
 	overflow-x: auto;
+}
+
+@media (max-width: 600px) {
+	.nav-shell {
+		justify-content: center;
+	}
+
+	.nav-toggle-label {
+		display: block;
+	}
+
+	.current-nav {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex: 1;
+		width: 100%;
+		padding: 0;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+	}
+
+	.current-nav a {
+		display: none;
+	}
+
+	body.page-home .current-nav .home_menu_item,
+	body.page-now .current-nav .now_menu_item,
+	body.page-reading .current-nav .reading_menu_item,
+	body.page-quotes .current-nav .quotes_menu_item {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: var(--header-height);
+		font-size: clamp(20px, 6vw, 26px);
+		width: 100%;
+		padding: 0;
+	}
+
+	.menu-nav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100svh;
+		width: min(80vw, 280px);
+		background: var(--bg);
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+		padding: calc(var(--header-height) + 8px) var(--space-2) var(--space-2);
+		transform: translateX(-110%);
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transition: transform 220ms ease, opacity 220ms ease;
+		will-change: transform;
+		box-shadow: 12px 0 30px rgba(0,0,0,0.25);
+		z-index: 1200;
+	}
+
+	.menu-nav a {
+		display: flex;
+		align-items: center;
+		min-height: 48px;
+		padding: 10px 0;
+	}
+
+	.nav-toggle:checked ~ .menu-nav {
+		transform: translateX(0);
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+	}
+
+	body.page-home .site-nav .home_menu_item,
+	body.page-now .site-nav .now_menu_item,
+	body.page-reading .site-nav .reading_menu_item,
+	body.page-quotes .site-nav .quotes_menu_item {
+		text-decoration-thickness: auto;
+	}
+
+	body.page-home .site-nav .home_menu_item::after,
+	body.page-now .site-nav .now_menu_item::after,
+	body.page-reading .site-nav .reading_menu_item::after,
+	body.page-quotes .site-nav .quotes_menu_item::after {
+		display: none;
+	}
+
+  .page-content {
+    padding: 1.25rem;
+  }
+
+  .quote_title {
+    font-size: 18px;
+  }
+
+  .quote_item {
+    padding: 12px;
+  }
+
+  .reading-item {
+    margin-bottom: 24px;
+  }
 }
 
 a {

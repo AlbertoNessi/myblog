@@ -15,14 +15,26 @@
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 	</head>
-	<body>
+	<body class="{% block body_class %}{% endblock %}">
 		<header>
-			<nav>
-				<a href="/" class="home_menu_item">HOME</a>
-				<a href="{% url 'now' %}" class="now_menu_item">NOW</a>
-				<a href="{% url 'reading' %}">READING</a>
-				<a href="{% url 'quotes' %}" class="quotes_menu_item">QUOTES</a>
-			</nav>
+			<div class="nav-shell">
+				<input type="checkbox" id="nav-toggle" class="nav-toggle">
+				<label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu">
+					<span></span>
+				</label>
+				<nav class="site-nav current-nav" aria-label="Current page">
+					<a href="/" class="home_menu_item">HOME</a>
+					<a href="{% url 'now' %}" class="now_menu_item">NOW</a>
+					<a href="{% url 'reading' %}" class="reading_menu_item">READING</a>
+					<a href="{% url 'quotes' %}" class="quotes_menu_item">QUOTES</a>
+				</nav>
+				<nav class="site-nav menu-nav" aria-label="Site menu">
+					<a href="/" class="home_menu_item">HOME</a>
+					<a href="{% url 'now' %}" class="now_menu_item">NOW</a>
+					<a href="{% url 'reading' %}" class="reading_menu_item">READING</a>
+					<a href="{% url 'quotes' %}" class="quotes_menu_item">QUOTES</a>
+				</nav>
+			</div>
 		</header>
 		{% block main_content %}{% endblock %}
 		<footer style="display: block; width: 100%;">
