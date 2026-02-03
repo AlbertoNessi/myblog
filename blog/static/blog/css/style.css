@@ -323,20 +323,6 @@ body.page-quotes .site-nav .quotes_menu_item::after {
 	.quotes-index {
 		display: none;
 	}
-
-	body.page-home .site-nav .home_menu_item,
-	body.page-now .site-nav .now_menu_item,
-	body.page-reading .site-nav .reading_menu_item,
-	body.page-quotes .site-nav .quotes_menu_item {
-		text-decoration-thickness: 2px;
-	}
-	body.page-home .site-nav .home_menu_item::after,
-	body.page-now .site-nav .now_menu_item::after,
-	body.page-reading .site-nav .reading_menu_item::after,
-	body.page-quotes .site-nav .quotes_menu_item::after {
-		height: 2px;
-		margin-top: 4px;
-	}
 }
 
 .page-content {
@@ -544,6 +530,16 @@ body.page-quotes .site-nav .quotes_menu_item::after {
 		width: 100%;
 		padding: 0;
 		text-decoration: none;
+	}
+
+	.quote_item {
+		border: 1px solid currentColor;
+		border-color: color-mix(in srgb, currentColor 25%, transparent);
+	}
+
+	.quote_item summary::after {
+		opacity: 1;
+		font-size: 24px;
 	}
 
 	.menu-nav {

@@ -4,7 +4,6 @@
 	  const PAIRS = [
 		  { fg: "#D0D1D4", bg: "#0D121F" },
 		  { fg: "#504F4F", bg: "#E2E2E2" },
-		  { fg: "#EBADCB", bg: "#4D1A28" },
 		  { fg: "#18185E", bg: "#C1B676" },
 		  { fg: "#DEE6FF", bg: "#143199" },
 		  { fg: "#333032", bg: "#93935F" },
