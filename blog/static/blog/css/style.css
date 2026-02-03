@@ -299,6 +299,31 @@ body.page-quotes .site-nav .quotes_menu_item::after {
 }
 
 @media (max-width: 600px) {
+	:root {
+		--header-height: 70px;
+	}
+
+	header {
+		border-bottom-width: 2px;
+	}
+
+	footer {
+		padding: 4px 0;
+	}
+
+	footer nav {
+		padding: 10px 12px;
+		gap: 16px;
+	}
+
+	footer nav a {
+		font-size: 0.95rem;
+	}
+
+	.quotes-index {
+		display: none;
+	}
+
 	body.page-home .site-nav .home_menu_item,
 	body.page-now .site-nav .now_menu_item,
 	body.page-reading .site-nav .reading_menu_item,
@@ -515,9 +540,10 @@ body.page-quotes .site-nav .quotes_menu_item::after {
 		align-items: center;
 		justify-content: center;
 		min-height: var(--header-height);
-		font-size: clamp(20px, 6vw, 26px);
+		font-size: 50px;
 		width: 100%;
 		padding: 0;
+		text-decoration: none;
 	}
 
 	.menu-nav {
@@ -530,7 +556,7 @@ body.page-quotes .site-nav .quotes_menu_item::after {
 		flex-direction: column;
 		align-items: stretch;
 		gap: 0;
-		padding: calc(var(--header-height) + 8px) var(--space-2) var(--space-2);
+		/* padding: calc(var(--header-height) + 8px) var(--space-2) var(--space-2); */
 		transform: translateX(-110%);
 		opacity: 0;
 		visibility: hidden;
@@ -546,6 +572,9 @@ body.page-quotes .site-nav .quotes_menu_item::after {
 		align-items: center;
 		min-height: 48px;
 		padding: 10px 0;
+		justify-content: flex-start;
+		font-size: 50px;
+		font-weight: 700;
 	}
 
 	.nav-toggle:checked ~ .menu-nav {
