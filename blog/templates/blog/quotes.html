@@ -42,7 +42,31 @@
 							{{ quote.title }}
 						</summary>
 						<div class="quote_body">
-							<a class="quote_source" href="{{ quote.link }}" target="_blank">Source</a>
+							<div class="quote_meta">
+								<p class="quote_meta_line">
+									{% if quote.subtitle %}
+										<span class="quote_meta_label">Subtitle:</span>
+										{{ quote.subtitle }}
+									{% endif %}
+								</p>
+								<p class="quote_meta_line">
+									{% if quote.author %}
+										<span class="quote_meta_label">Author:</span>
+										{{ quote.author }}
+									{% endif %}
+								</p>
+								<p class="quote_meta_line">
+									{% if quote.subtitle %}
+										<span class="quote_meta_label">Date:</span>
+										{{ quote.date|date:"F j, Y, g:i a" }}
+									{% endif %}
+								</p>
+								<p class="quote_meta_line">
+									{% if quote.link %}
+										<a class="quote_source" href="{{ quote.link }}" target="_blank">Link</a>
+									{% endif %}
+								</p>
+							</div>
 							{{ quote.text|safe }}
 						</div>
 					</details>
