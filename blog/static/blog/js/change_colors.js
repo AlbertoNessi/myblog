@@ -22,6 +22,8 @@
 	const MODE_KEY = "themeMode";
 	const INDEX_KEY_PREFIX = "themeIndex:";
 	const DARK_BG_THRESHOLD = 0.45;
+	const BG_LIGHTEN_DARK = 0.16;
+	const BG_LIGHTEN_LIGHT = 0.32;
 
 	const root = document.documentElement;
 	const style = root.style;
@@ -48,6 +50,18 @@
 		return (0.2126 * toLinear(r)) + (0.7152 * toLinear(g)) + (0.0722 * toLinear(b));
 	}
 
+	function channelToHex(value) {
+		return value.toString(16).padStart(2, "0");
+	}
+
+	function lightenHex(hex, ratio) {
+		const { r, g, b } = hexToRgb(hex);
+		const nr = Math.round(r + ((255 - r) * ratio));
+		const ng = Math.round(g + ((255 - g) * ratio));
+		const nb = Math.round(b + ((255 - b) * ratio));
+		return `#${channelToHex(nr)}${channelToHex(ng)}${channelToHex(nb)}`;
+	}
+
 	const darkPairs = PAIRS.filter((pair) => luminance(pair.bg) < DARK_BG_THRESHOLD);
 	const lightPairs = PAIRS.filter((pair) => luminance(pair.bg) >= DARK_BG_THRESHOLD);
 
@@ -71,8 +85,12 @@
 	}
 
 	function applyTheme(mode, pair) {
+		const isLightPair = luminance(pair.bg) >= DARK_BG_THRESHOLD;
+		const lightenRatio = isLightPair ? BG_LIGHTEN_LIGHT : BG_LIGHTEN_DARK;
+		const bg = lightenHex(pair.bg, lightenRatio);
+
 		style.setProperty("--fg", pair.fg);
-		style.setProperty("--bg", pair.bg);
+		style.setProperty("--bg", bg);
 		style.setProperty("--link", pair.fg);
 		root.dataset.themeMode = mode;
 		if (themeToggle) {
