@@ -8,6 +8,7 @@
 {% block main_content %}
 	<main class="page-content">
 		<h1>Books I'm reading or that I have read.</h1>
+		
 		<ul class="reading-list">
 			{% for book in books %}
 				<li class="reading-item">
@@ -16,6 +17,17 @@
 							<strong>{{ book.title }}</strong>
 						</a>
 					</p>
+					
+					{% if book.subtitle %}
+						<p>{{ book.subtitle }}</p>
+					{% endif %}
+
+					{% if book.link %}
+						<p>
+							<a class="book_source" href="{{ book.link }}" target="_blank">Link</a>
+						</p>
+					{% endif %}
+					
 					<p>by {{ book.author }}</p>
 				</li>
 			{% endfor %}
