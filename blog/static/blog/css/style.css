@@ -84,6 +84,51 @@ header {
 	z-index: 1300;
 }
 
+.theme-toggle {
+	position: absolute;
+	right: var(--space-2);
+	top: 50%;
+	transform: translateY(-50%);
+	width: 38px;
+	height: 38px;
+	border-radius: 999px;
+	border: 2px solid currentColor;
+	background: transparent;
+	color: currentColor;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	padding: 0;
+	z-index: 1300;
+}
+
+.theme-toggle:hover {
+	background-color: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.theme-icon {
+	width: 20px;
+	height: 20px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.theme-toggle .icon-sun {
+	display: none;
+}
+
+:root[data-theme-mode="dark"] .theme-toggle .icon-sun {
+	display: block;
+}
+
+:root[data-theme-mode="dark"] .theme-toggle .icon-moon {
+	display: none;
+}
+
 .nav-toggle-label span,
 .nav-toggle-label span::before,
 .nav-toggle-label span::after {
@@ -561,6 +606,11 @@ body.page-quotes .site-nav .quotes_menu_item::after {
 
 	.nav-toggle-label {
 		display: block;
+	}
+
+	.theme-toggle {
+		width: 34px;
+		height: 34px;
 	}
 
 	.current-nav {
