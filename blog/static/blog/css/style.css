@@ -302,7 +302,7 @@ footer nav a {
 
 .social-button:hover {
 	background-color: color-mix(in srgb, currentColor 12%, transparent);
-	transform: translateY(-1px);
+	transform: translateY(-3px);
 }
 
 @media (max-width: 420px) {
@@ -356,13 +356,18 @@ a:hover {
   text-decoration: none;
 }
 
-.site-nav a:hover,
-footer nav a:hover {
-	text-decoration: underline dotted;
-}
-
 .site-nav a {
 	position: relative;
+	transition: transform 150ms ease;
+}
+
+.site-nav a:hover {
+	text-decoration: none;
+	transform: translateY(-3px);
+}
+
+footer nav a:hover {
+	text-decoration: underline dotted;
 }
 
 body.page-home .site-nav .home_menu_item,
