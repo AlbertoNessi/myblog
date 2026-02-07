@@ -92,7 +92,7 @@ header {
 	width: 38px;
 	height: 38px;
 	border-radius: 999px;
-	border: 2px solid currentColor;
+	border: 1px solid currentColor;
 	background: transparent;
 	color: currentColor;
 	display: inline-flex;
@@ -215,8 +215,85 @@ header {
 	}
 }
 
+.home-dashboard {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-3);
+	padding: var(--space-3);
+	width: min(96vw, 980px);
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+.home-panel {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	border: 1px solid currentColor;
+	border-radius: 0;
+	padding: var(--space-3);
+	color: var(--link);
+	text-decoration: none;
+	min-height: 220px;
+	box-sizing: border-box;
+	transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.home-panel-link {
+	cursor: pointer;
+}
+
+.home-panel:hover {
+	transform: translateY(-3px);
+	background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+.home-panel:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 4px;
+}
+
+.home-panel h2 {
+	margin-top: 0;
+	margin-bottom: 12px;
+	font-size: var(--fs-500);
+}
+
+.home-panel p {
+	margin: 0 0 8px;
+}
+
+.home-profile-image {
+	width: min(50vw, 220px);
+	margin: 0 0 14px;
+}
+
+.home-quote-text {
+	overflow-wrap: anywhere;
+	word-break: break-word;
+}
+
+.home-quote-text p {
+	margin-top: 10px;
+}
+
+@media (min-width: 900px) {
+	.home-dashboard {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-rows: repeat(2, minmax(0, 1fr));
+		aspect-ratio: 1 / 1;
+	}
+
+	.home-panel {
+		height: 100%;
+		overflow: auto;
+	}
+}
+
 #profile-pic {
-	width: min(60vw, 300px);
+	width: min(60vw, 200px);
 	height: auto;
 	border-radius: 50%;
 	margin-bottom: 0;
@@ -285,7 +362,7 @@ footer nav a {
 	width: 44px;
 	height: 44px;
 	border-radius: 999px;
-	border: 2px solid currentColor;
+	border: 1px solid currentColor;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -727,6 +804,15 @@ body.page-quotes .site-nav .quotes_menu_item::after {
   .reading-item {
     margin-bottom: 24px;
   }
+
+	.home-dashboard {
+		padding: var(--space-2);
+		gap: var(--space-2);
+	}
+
+	.home-panel {
+		min-height: auto;
+	}
 }
 
 a {
@@ -752,4 +838,72 @@ ol{
   list-style: none;   /* or: list-style-type: none; */
   margin: 0;
   padding: 0;         /* avoids leftover indent */
+}
+
+body.page-home .home-dashboard {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-rows: repeat(2, minmax(0, 1fr));
+	gap: 20px;
+	width: min(92vw, 980px);
+	aspect-ratio: 1 / 1;
+	margin: 24px auto;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body.page-home .home-panel {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	border: 1px solid currentColor;
+	border-radius: 0;
+	padding: 20px;
+	box-sizing: border-box;
+	overflow: auto;
+}
+
+body.page-home .home-panel-link {
+	cursor: pointer;
+}
+
+body.page-home .home-panel h1,
+body.page-home .home-panel h2,
+body.page-home .home-panel p {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+body.page-home .home-panel > :is(h1, h2) {
+	margin-top: 0;
+	margin-bottom: 14px;
+}
+
+body.page-home .home-panel > :not(h1):not(h2):first-of-type {
+	margin-top: auto;
+}
+
+body.page-home .home-panel > :last-child {
+	margin-bottom: auto;
+}
+
+body.page-home .home-profile-image {
+	width: min(40vw, 220px);
+	margin-bottom: 14px;
+}
+
+body.page-home .home-quote-text {
+	width: 100%;
+	overflow-wrap: anywhere;
+	word-break: break-word;
+}
+
+@media (max-width: 900px) {
+	body.page-home .home-dashboard {
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+		aspect-ratio: auto;
+		width: min(94vw, 760px);
+	}
 }

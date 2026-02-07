@@ -4,15 +4,75 @@
 {% block body_class %}page-home{% endblock %}
 
 {% block main_content %}
-	<main class="home">
-		<img
-			src="{% static 'blog/images/pistoia.jpeg' %}" 
-			alt="Profile picture" 
-			id="profile-pic"
-		>
-		<div class="intro">
-			<p>I'm Alberto Nessi and I'm a web developer based near Milan. Here to share just what I'm doing now, what I'm reading, watching and some interesting quotes.</p>
-		</div>
-		{% include "blog/includes/social_buttons.html" %}
+	<main class="home-dashboard">
+		<section class="home-panel home-panel-link" role="link" tabindex="0" data-target-url="/">
+			<h1>Profile</h1>
+			<img
+				src="{% static 'blog/images/pistoia.jpeg' %}"
+				alt="Profile picture"
+				id="profile-pic"
+				class="home-profile-image"
+			>
+			<p>{{ welcome_text }}</p>
+		</section>
+
+		<section class="home-panel home-panel-link" role="link" tabindex="0" data-target-url="{% url 'now' %}">
+			<h1>What I'm Doing Now</h1>
+			{% for update in now_updates %}
+				<p>{{ update }}</p>
+			{% endfor %}
+		</section>
+
+		<section class="home-panel home-panel-link" role="link" tabindex="0" data-target-url="{% url 'reading' %}">
+			<h1>Reading</h1>
+			{% if latest_book %}
+				<p>{{ latest_book.title }}</p>
+				
+				{% if latest_book.subtitle %}
+					<p>{{ latest_book.subtitle }}</p>
+				{% endif %}
+				
+				<p><strong>By:</strong> {{ latest_book.author }}</p>
+			{% else %}
+				<p>No books available yet.</p>
+			{% endif %}
+		</section>
+
+		<section class="home-panel home-panel-link" role="link" tabindex="0" data-target-url="{% url 'quotes' %}">
+			<h1>Last interesting quote</h1>
+			
+			{% if latest_quote %}
+				<p>{{ latest_quote.title }}</p>
+				
+				{% if latest_quote.subtitle %}
+					<p>{{ latest_quote.subtitle }}</p>
+				{% endif %}
+				
+				<p><strong>By:</strong> {{ latest_quote.author }}</p>
+				<div class="home-quote-text">
+					<p>{{ latest_quote.text|safe }}</p>
+				</div>
+			{% endif %}
+		</section>
 	</main>
+	
+	<script>
+		document.querySelectorAll('.home-panel-link').forEach((panel) => {
+			const targetUrl = panel.dataset.targetUrl;
+
+			panel.addEventListener('click', (event) => {
+				if (event.target.closest('a')) {
+					return;
+				}
+				window.location.href = targetUrl;
+			});
+
+			panel.addEventListener('keydown', (event) => {
+				if (event.key === 'Enter' || event.key === ' ') {
+					event.preventDefault();
+					window.location.href = targetUrl;
+				}
+			});
+		});
+	</script>
 {% endblock %}

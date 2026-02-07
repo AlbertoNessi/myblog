@@ -3,7 +3,20 @@ from .models import Books, Quotes
 
 
 def index(request):
-    return render(request, 'blog/home.html', {})
+    latest_book = Books.objects.all().order_by('-id').first()
+    latest_quote = Quotes.objects.all().order_by('-id').first()
+
+    context = {
+        'welcome_text': "I'm Alberto Nessi and I'm a web developer based near Milan. "
+		"Here to share just what I'm doing now, what I'm reading, watching and some interesting quotes.",
+        'now_updates': [
+            'Working at Sec Group Srl building B2B web applications.',
+            'Studying Python and Django in my free time and experimenting with LLMs too.',
+        ],
+        'latest_book': latest_book,
+        'latest_quote': latest_quote,
+    }
+    return render(request, 'blog/home.html', context)
 
 
 def now(request):
