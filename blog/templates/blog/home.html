@@ -14,6 +14,7 @@
 				class="home-profile-image"
 			>
 			<p>{{ welcome_text }}</p>
+			{% include "blog/includes/social_buttons.html" %}
 		</section>
 
 		<section class="home-panel home-panel-link" role="link" tabindex="0" data-target-url="{% url 'now' %}">
