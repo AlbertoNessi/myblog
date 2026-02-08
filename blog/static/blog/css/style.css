@@ -855,6 +855,7 @@ body.page-home .home-dashboard {
 body.page-home .home-panel {
 	display: flex;
 	flex-direction: column;
+	justify-content: flex-start;
 	align-items: center;
 	text-align: center;
 	border: 1px solid currentColor;
@@ -899,11 +900,29 @@ body.page-home .home-quote-text {
 	word-break: break-word;
 }
 
+body.page-home .home-panel-quote {
+	overflow: hidden;
+}
+
+body.page-home .home-panel-quote .home-quote-text p {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 8;
+	line-clamp: 8;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 @media (max-width: 900px) {
 	body.page-home .home-dashboard {
 		grid-template-columns: 1fr;
 		grid-template-rows: auto;
 		aspect-ratio: auto;
 		width: min(94vw, 760px);
+	}
+
+	body.page-home .home-panel-quote .home-quote-text p {
+		-webkit-line-clamp: 5;
+		line-clamp: 5;
 	}
 }
