@@ -1,11 +1,16 @@
 
 (function () {
+	/*
+	 * Theme strategy:
+	 * - Choose mode from local clock on every page load.
+	 * - Keep dark/light palettes separate so each mode can rotate colors independently.
+	 * - Let users toggle manually, but do not persist mode overrides across reloads.
+	 */
 	const PAIRS = [
 		{ fg: "#D0D1D4", bg: "#0D121F" },
 		{ fg: "#504F4F", bg: "#E2E2E2" },
 		{ fg: "#18185E", bg: "#C1B676" },
 		{ fg: "#DEE6FF", bg: "#143199" },
-		{ fg: "#333032", bg: "#93935F" },
 		{ fg: "#3D3D3D", bg: "#96DCED" },
 		{ fg: "#E48244", bg: "#442C25" },
 		{ fg: "#FF4445", bg: "#222222" },
@@ -19,11 +24,12 @@
 		{ fg: "#0AEB9A", bg: "#353F54" }
 	];
 
-	const MODE_KEY = "themeMode";
 	const INDEX_KEY_PREFIX = "themeIndex:";
 	const DARK_BG_THRESHOLD = 0.45;
 	const BG_LIGHTEN_DARK = 0.16;
 	const BG_LIGHTEN_LIGHT = 0.32;
+	const LIGHT_START_MINUTES = (10 * 60) + 1;
+	const LIGHT_END_MINUTES = 18 * 60;
 
 	const root = document.documentElement;
 	const style = root.style;
@@ -79,6 +85,7 @@
 		const modePairs = getModePairs(mode);
 		const key = `${INDEX_KEY_PREFIX}${mode}`;
 		const last = Number(localStorage.getItem(key));
+		/* Keep one cursor per mode so switching back does not always repeat the same pair. */
 		const idx = Number.isFinite(last) ? (last + 1) % modePairs.length : 0;
 		localStorage.setItem(key, String(idx));
 		return modePairs[idx];
@@ -86,6 +93,7 @@
 
 	function applyTheme(mode, pair) {
 		const isLightPair = luminance(pair.bg) >= DARK_BG_THRESHOLD;
+		/* Raw palette backgrounds are a bit too saturated; lighten slightly for reading comfort. */
 		const lightenRatio = isLightPair ? BG_LIGHTEN_LIGHT : BG_LIGHTEN_DARK;
 		const bg = lightenHex(pair.bg, lightenRatio);
 
@@ -100,22 +108,32 @@
 		}
 	}
 
-	function getInitialMode() {
-		const savedMode = localStorage.getItem(MODE_KEY);
-		if (savedMode === "dark" || savedMode === "light") {
-			return savedMode;
+	function getModeForTime(now = new Date()) {
+		const minutesFromMidnight = (now.getHours() * 60) + now.getMinutes();
+		/*
+		 * Boundaries are explicit:
+		 * - 10:00 is still dark.
+		 * - 10:01 starts light mode.
+		 * - 18:00 is still light.
+		 * - 18:01 returns to dark mode.
+		 */
+		if (minutesFromMidnight >= LIGHT_START_MINUTES && minutesFromMidnight <= LIGHT_END_MINUTES) {
+			return "light";
 		}
-		return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+		return "dark";
+	}
+
+	function getInitialMode() {
+		/* Intentional: schedule wins over system preference and past sessions. */
+		return getModeForTime();
 	}
 
 	let currentMode = getInitialMode();
-	localStorage.setItem(MODE_KEY, currentMode);
 	applyTheme(currentMode, nextPairForMode(currentMode));
 
 	if (themeToggle) {
 		themeToggle.addEventListener("click", () => {
 			currentMode = currentMode === "dark" ? "light" : "dark";
-			localStorage.setItem(MODE_KEY, currentMode);
 			applyTheme(currentMode, nextPairForMode(currentMode));
 		});
 	}
