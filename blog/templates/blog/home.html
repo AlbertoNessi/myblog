@@ -7,14 +7,21 @@
 	<main class="home-dashboard">
 		<section class="home-panel home-panel-link" role="link" tabindex="0" data-target-url="/">
 			<h1>Profile</h1>
+
 			<img
 				src="{% static 'blog/images/pistoia.jpeg' %}"
 				alt="Profile picture"
 				id="profile-pic"
 				class="home-profile-image"
 			>
+
 			<p>{{ welcome_text }}</p>
-			{% include "blog/includes/social_buttons.html" %}
+
+			{# Resolve the static file once in the parent template. #}
+			{# The included template receives a complete URL, not a raw static path. #}
+			{% static 'blog/Alberto_Nessi_CV_2026.pdf' as cv_file_url %}
+
+			{% include "blog/includes/social_buttons.html" with cv_file_url=cv_file_url %}
 		</section>
 
 		<section class="home-panel home-panel-link" role="link" tabindex="0" data-target-url="{% url 'now' %}">
