@@ -1,5 +1,13 @@
+from django.conf import settings
+from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Books, Quotes
+
+
+def llms_txt(request):
+    content = (settings.BASE_DIR / "llms.txt").read_text(encoding="utf-8")
+
+    return HttpResponse(content, content_type="text/plain; charset=utf-8")
 
 
 def index(request):

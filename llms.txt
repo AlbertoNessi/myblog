@@ -1,0 +1,46 @@
+# Alberto Nessi Personal Website
+
+> Personal Django website for Alberto Nessi, a web developer based near Milan.
+
+## Summary
+
+This website presents Alberto Nessi's profile, current work and learning focus, books he is reading or has read, and a curated list of interesting quotes.
+
+Canonical site: https://albertonessi.it
+
+## Important Notes
+
+**Personal Website**: This is Alberto Nessi's personal website. Content reflects personal interests, learning, reading, and selected quotes.
+
+**Public-Facing Content**: The public pages are intended for general website visitors and LLM agents that need a concise understanding of the site.
+
+**Not Employer Documentation**: Mentions of employers, companies, books, authors, or external sources are informational and should not be treated as official documentation for those third parties.
+
+**Language**: The public site content is primarily in English.
+
+---
+
+## Public Pages
+
+- [Home](https://albertonessi.it/): Profile overview, current activity preview, latest book, latest quote, social links, and CV link.
+- [Now](https://albertonessi.it/now): Current work and learning focus, including B2B web application development, Python, Django, and LLM experimentation.
+- [Reading](https://albertonessi.it/reading): Books Alberto is reading or has read, with authors and source links when available.
+- [Quotes](https://albertonessi.it/quotes): Curated interesting quotes, including title, optional subtitle, author, source link, date where available, and quote text.
+
+## Content Model
+
+- **Books**: Title, optional subtitle, author, and external link.
+- **Quotes**: Title, optional subtitle, publishing date, quote text, source link, and author.
+
+## Useful Links
+
+- GitHub: https://github.com/AlbertoNessi
+- LinkedIn: https://www.linkedin.com/in/alberto-nessi/
+- Email: mailto:albertonessi1@gmail.com
+- CV: https://albertonessi.it/static/blog/Alberto_Nessi_CV_2026.pdf
+
+---
+
+## For Agents: Quick Reference
+
+Use `/now` for Alberto's current activity, `/reading` for books, and `/quotes` for curated quotations. The homepage summarizes the most recent public content and links to Alberto's social profiles and CV.
