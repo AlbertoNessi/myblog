@@ -1,79 +1,47 @@
-{% extends 'blog/base.html' %}
+{% extends 'blog/section_layout.html' %}
 {% load static %}
 
 {% block title %} Alberto Nessi - Quotes {% endblock %}
 
 {% block body_class %}page-quotes{% endblock %}
 
-{% block main_content %}
-	<div class="quotes-index">
-		<ul class="quotes-index-list">
-			{% for quote in quotesAsc %}
-				<li
-					class="quote_link hasPopover"
-					data-popover-id="quoteLinkPopover_{{ quote.id }}"
-				>
-					<a
-						href="#quote_{{ quote.id }}"
-						aria-describedby="quoteLinkPopover_{{ quote.id }}"
-					>
-						{{ quote.id }}
-					</a>
-				</li>
-
-				<div
-					popover
-					role="tooltip"
-					class="quoteLinkPopover"
-					id="quoteLinkPopover_{{ quote.id }}"
-				>
-					<p>{{ quote.title }}</p>
+{% block section_content %}
+	<ul class="quotes-list">
+		{% for quote in quotesDesc %}
+			<li class="quote_section" id="quote_{{ quote.id }}">
+				<div class="quote_date">
+					<time datetime="{{ quote.date|date:'c' }}">{{ quote.date|date:"d/m/Y" }}</time> -
 				</div>
-			{% endfor %}
-		</ul>
-	</div>
-	<main class="page-content">
-		<h1>Interesting Quotes</h1>
-		<ul class="quotes-list">
-			{% for quote in quotesDesc %}
-				<li class="quote_section" id="quote_{{ quote.id }}">
-					<details class="quote_item js-quote-item">
-						<summary class="quote_title">
-							{{ quote.title }}
-						</summary>
-						<div class="quote_body">
-							<div class="quote_meta">
-								<p class="quote_meta_line">
-									{% if quote.subtitle %}
-										<span class="quote_meta_label">Subtitle:</span>
-										{{ quote.subtitle }}
-									{% endif %}
-								</p>
-								<p class="quote_meta_line">
-									{% if quote.author %}
-										<span class="quote_meta_label">Author:</span>
-										{{ quote.author }}
-									{% endif %}
-								</p>
-								<p class="quote_meta_line">
-									{% if quote.subtitle %}
-										<span class="quote_meta_label">Date:</span>
-										{{ quote.date|date:"F j, Y, g:i a" }}
-									{% endif %}
-								</p>
-								<p class="quote_meta_line">
-									{% if quote.link %}
-										<a class="quote_source" href="{{ quote.link }}" target="_blank">Link</a>
-									{% endif %}
-								</p>
-							</div>
-							{{ quote.text|safe }}
+				<details class="quote_item js-quote-item">
+					<summary class="quote_title">
+						{{ quote.title }}
+					</summary>
+					<div class="quote_body">
+						<div class="quote_meta">
+							<p class="quote_meta_line">
+								{% if quote.subtitle %}
+									<span class="quote_meta_label">Subtitle:</span>
+									{{ quote.subtitle }}
+								{% endif %}
+							</p>
+							<p class="quote_meta_line">
+								{% if quote.author %}
+									<span class="quote_meta_label">Author:</span>
+									{{ quote.author }}
+								{% endif %}
+							</p>
+							<p class="quote_meta_line">
+								{% if quote.link %}
+									<a class="quote_source" href="{{ quote.link }}" target="_blank">Link</a>
+								{% endif %}
+							</p>
 						</div>
-					</details>
-				</li>
-			{% endfor %}
-		</ul>
-	</main>
+						{{ quote.text|safe }}
+					</div>
+				</details>
+			</li>
+		{% endfor %}
+	</ul>
 
 	<script>
 		document.querySelectorAll('.js-quote-item').forEach((item) => {
@@ -87,5 +55,5 @@
 			});
 		});
 	</script>
-	
+
 {% endblock %}

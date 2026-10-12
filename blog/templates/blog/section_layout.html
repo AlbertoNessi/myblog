@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block main_content %}
+	<main class="section-layout">
+		<aside class="section-sidebar">
+			<div class="section-menu">
+				<img
+					src="{% static 'blog/images/pistoia.jpeg' %}"
+					alt="Profile picture"
+					id="profile-pic"
+					width="640"
+					height="641"
+				>
+				<nav class="section-navigation" aria-label="Sections">
+					<ul>
+						<li><a id="section-link-index" href="{% url 'index' %}"{% if request.resolver_match.url_name == 'index' %} aria-current="page"{% endif %}>Profile</a></li>
+						<li><a id="section-link-now" href="{% url 'now' %}"{% if request.resolver_match.url_name == 'now' %} aria-current="page"{% endif %}>Now</a></li>
+						<li><a id="section-link-reading" href="{% url 'reading' %}"{% if request.resolver_match.url_name == 'reading' %} aria-current="page"{% endif %}>Reading</a></li>
+						<li><a id="section-link-quotes" href="{% url 'quotes' %}"{% if request.resolver_match.url_name == 'quotes' %} aria-current="page"{% endif %}>Quotes</a></li>
+					</ul>
+				</nav>
+			</div>
+			{# The include needs a complete URL, not a static file path. #}
+			{% static 'blog/Alberto_Nessi_CV_2026.pdf' as cv_file_url %}
+			{% include "blog/includes/social_buttons.html" with cv_file_url=cv_file_url %}
+		</aside>
+		<section class="section-content" tabindex="0" aria-labelledby="section-link-{{ request.resolver_match.url_name }}">
+			{% block section_content %}{% endblock %}
+		</section>
+	</main>
+{% endblock %}

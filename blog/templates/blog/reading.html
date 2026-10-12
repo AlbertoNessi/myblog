@@ -1,36 +1,32 @@
-{% extends 'blog/base.html' %}
+{% extends 'blog/section_layout.html' %}
 {% load static %}
 
 {% block title %} Alberto Nessi - reading {% endblock %}
 
 {% block body_class %}page-reading{% endblock %}
 
-{% block main_content %}
-	<main class="page-content">
-		<h1>Books I'm reading or that I have read.</h1>
-		
-		<ul class="reading-list">
-			{% for book in books %}
-				<li class="reading-item">
-					<p>
-						<a href="{{ book.link }}" target="_blank">
-							<strong>{{ book.title }}</strong>
-						</a>
-					</p>
-					
-					{% if book.subtitle %}
-						<p>{{ book.subtitle }}</p>
-					{% endif %}
+{% block section_content %}
+	<ul class="reading-list">
+		{% for book in books %}
+			<li class="reading-item">
+				<p>
+					<a href="{{ book.link }}" target="_blank">
+						<strong>{{ book.title }}</strong>
+					</a>
+				</p>
 
-					{% if book.link %}
-						<p>
-							<a class="book_source" href="{{ book.link }}" target="_blank">Link</a>
-						</p>
-					{% endif %}
-					
-					<p>by {{ book.author }}</p>
-				</li>
-			{% endfor %}
-		</ul>
-	</main>
+				{% if book.subtitle %}
+					<p>{{ book.subtitle }}</p>
+				{% endif %}
+
+				{% if book.link %}
+					<p>
+						<a class="book_source" href="{{ book.link }}" target="_blank">Link</a>
+					</p>
+				{% endif %}
+
+				<p>by {{ book.author }}</p>
+			</li>
+		{% endfor %}
+	</ul>
 {% endblock %}
