@@ -26,3 +26,11 @@ The palette stays the same at all times of day.
 The page background has no cloud image. The footer has no illustration.
 It shows the copyright in the page font and text color, with 16px padding.
 The footer does not load a separate web font.
+
+## CV
+
+The CV button on each public page opens `static/blog/Alberto_Nessi_CV_2026.pdf`
+in a new tab. This file contains the current 2026 CV. To update the CV,
+replace this PDF and keep its filename so the shared link stays valid.
+Local development serves the app's static file. Run `collectstatic` as part
+of deployment to update the published copy.
