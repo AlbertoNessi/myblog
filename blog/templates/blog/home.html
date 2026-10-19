@@ -2,6 +2,14 @@
 
 {% block body_class %}page-home{% endblock %}
 
+{% block header_portrait %}{% endblock %}
+
+{% block section_portrait %}
+	<div class="profile-portrait">
+		{% include "blog/includes/profile_portrait.html" %}
+	</div>
+{% endblock %}
+
 {% block section_content %}
 	{{ profile.introduction|linebreaks }}
 	{{ profile.body|linebreaks }}

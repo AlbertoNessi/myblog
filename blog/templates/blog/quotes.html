@@ -5,14 +5,16 @@
 
 {% block body_class %}page-quotes{% endblock %}
 
+{% block mobile_section_title %}Quotes{% endblock %}
+
 {% block section_content %}
 	<ul class="quotes-list">
 		{% for quote in quotesDesc %}
 			<li class="quote_section" id="quote_{{ quote.id }}">
 				<div class="quote_date">
-					<time datetime="{{ quote.date|date:'c' }}">{{ quote.date|date:"d/m/Y" }}</time> -
+					<time datetime="{{ quote.date|date:'c' }}">{{ quote.date|date:"d/m/Y" }}</time><span class="quote-date-separator"> -</span>
 				</div>
-				<details class="quote_item js-quote-item">
+				<details class="quote_item">
 					<summary class="quote_title">
 						{{ quote.title }}
 					</summary>
@@ -42,18 +44,4 @@
 			</li>
 		{% endfor %}
 	</ul>
-
-	<script>
-		document.querySelectorAll('.js-quote-item').forEach((item) => {
-			item.addEventListener('click', (event) => {
-				const isLink = event.target.closest('a');
-				if (isLink) {
-					return;
-				}
-				event.preventDefault();
-				item.open = !item.open;
-			});
-		});
-	</script>
-
 {% endblock %}
