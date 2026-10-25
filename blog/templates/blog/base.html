@@ -8,9 +8,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 		
 		<title>{% block title %}Alberto Nessi {% endblock %}</title>
+
+		<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="{% static 'blog/icons/favicon.ico' %}?v=20261025">
+		<link rel="icon" type="image/png" sizes="32x32" href="{% static 'blog/icons/favicon-32x32.png' %}?v=20261025">
+		<link rel="apple-touch-icon" sizes="180x180" href="{% static 'blog/icons/apple-touch-icon.png' %}?v=20261025">
+		<link rel="manifest" href="{% static 'blog/icons/site.webmanifest' %}?v=20261025">
 		
-		{# Use a new CSS URL so browsers do not reuse the old mobile layout. #}
-		<link rel="stylesheet" href="{% static 'blog/css/style.css' %}?v=menu-icons-all-20261019">
+		{# Use a new CSS URL so browsers load the clickable book cards. #}
+		<link rel="stylesheet" href="{% static 'blog/css/style.css' %}?v=reading-card-links-20261025">
 		
 	</head>
 	<body class="{% block body_class %}{% endblock %}">

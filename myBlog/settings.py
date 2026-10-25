@@ -33,6 +33,10 @@ ALLOWED_HOSTS = [
     "localhost",
 ]
 
+if DEBUG:
+    # Allow the current Wi-Fi address only for local development.
+    ALLOWED_HOSTS.append("192.168.1.2")
+
 CSRF_TRUSTED_ORIGINS = ["https://albertonessi.it",
                         "https://www.albertonessi.it"]
 
@@ -129,6 +133,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "/static/"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+if not DEBUG:
+    MEDIA_ROOT = Path("/var/www/myblog/media/")
+MEDIA_ROOT = Path(os.environ.get("DJANGO_MEDIA_ROOT", MEDIA_ROOT))
 
 # Keep STATIC_ROOT different for local vs server (otherwise local collectstatic
 # tries to write into /var/www/... which is a server path).

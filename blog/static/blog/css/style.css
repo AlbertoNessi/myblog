@@ -281,6 +281,55 @@ footer nav a:hover {
 	cursor: pointer;
 }
 
+.reading-item {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	gap: 20px;
+}
+
+/* Extend the one book link over its card. Keep normal link and keyboard use. */
+.reading-item .book_source::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	cursor: pointer;
+}
+
+.reading-item:focus-within {
+	outline: 2px solid currentColor;
+	/* Keep the focus outline inside the scroll area. */
+	outline-offset: -2px;
+}
+
+.reading-item .book_source:focus {
+	/* The card outline identifies the one focused link. */
+	outline: none;
+}
+
+.book-cover {
+	display: block;
+	width: 100px;
+	height: auto;
+	flex: 0 0 auto;
+	border-radius: 3px;
+}
+
+.book-details {
+	min-width: 0;
+	flex: 1;
+}
+
+@media (max-width: 380px) {
+	.reading-item {
+		flex-direction: column;
+	}
+
+	.book-details {
+		width: 100%;
+	}
+}
+
 .reading-item:hover,
 .quote_item:hover {
 	background-color: #FFFFFF;
@@ -612,6 +661,11 @@ ol{
 }
 
 @media (max-width: 900px) {
+	/* Allow native bounce and pull-to-refresh on the mobile document. */
+	html, body {
+		overscroll-behavior-y: auto;
+	}
+
 	:root {
 		font-size: 18px;
 		--mobile-rule: rgba(1, 91, 126, 0.18);
@@ -619,6 +673,7 @@ ol{
 
 	body {
 		box-sizing: border-box;
+		min-height: 100dvh;
 		padding-top: env(safe-area-inset-top);
 		padding-bottom: calc(24px + env(safe-area-inset-bottom));
 		-webkit-text-size-adjust: 100%;
@@ -628,6 +683,8 @@ ol{
 	/* Use document scrolling and place contacts after the content. */
 	.section-layout {
 		grid-template-columns: minmax(0, 1fr);
+		/* The content row fills free space above the contact links. */
+		grid-template-rows: auto 1fr auto;
 		gap: 0;
 		width: 100%;
 		max-width: 640px;
@@ -685,6 +742,10 @@ ol{
 	.page-home .section-content {
 		grid-row: 3;
 		padding-top: 16px;
+	}
+
+	.page-home .section-layout {
+		grid-template-rows: auto auto 1fr auto;
 	}
 
 	.page-home .social-buttons {
@@ -853,6 +914,11 @@ ol{
 		border: 1px solid var(--mobile-rule);
 		border-radius: 16px;
 		background: #fff;
+		gap: 16px;
+	}
+
+	.book-cover {
+		width: 72px;
 	}
 
 	.reading-item p:first-child {
@@ -953,5 +1019,14 @@ ol{
 
 	.quote_meta {
 		font-size: 15px;
+	}
+}
+
+@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
+	.profile-portrait #profile-pic {
+		/* Keep the page layout in place while the portrait grows. */
+		transform-origin: center;
+		transform: scale(var(--portrait-pull-scale, 1));
+		will-change: transform;
 	}
 }

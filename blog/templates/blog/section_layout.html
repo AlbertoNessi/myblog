@@ -18,19 +18,19 @@
 				<nav class="section-navigation" id="section-navigation" aria-label="Sections">
 					<ul>
 						<li><a id="section-link-index" href="{% url 'index' %}"{% if request.resolver_match.url_name == 'index' %} aria-current="page"{% endif %}>
-							<img class="section-icon" src="{% static 'blog/images/menu-profile.png' %}" alt="" width="1309" height="1201">
+							<img class="section-icon" src="{% static 'blog/images/menu-profile.png' %}?v=optimized-20261025" alt="" width="96" height="88">
 							<span>Profile</span>
 						</a></li>
 						<li><a id="section-link-now" href="{% url 'now' %}"{% if request.resolver_match.url_name == 'now' %} aria-current="page"{% endif %}>
-							<img class="section-icon" src="{% static 'blog/images/menu-now.png' %}" alt="" width="1254" height="1254">
+							<img class="section-icon" src="{% static 'blog/images/menu-now.png' %}?v=optimized-20261025" alt="" width="96" height="96">
 							<span>Now</span>
 						</a></li>
 						<li><a id="section-link-reading" href="{% url 'reading' %}"{% if request.resolver_match.url_name == 'reading' %} aria-current="page"{% endif %}>
-							<img class="section-icon" src="{% static 'blog/images/menu-reading.png' %}" alt="" width="1536" height="1024">
+							<img class="section-icon" src="{% static 'blog/images/menu-reading.png' %}?v=optimized-20261025" alt="" width="96" height="64">
 							<span>Reading</span>
 						</a></li>
 						<li><a id="section-link-quotes" href="{% url 'quotes' %}"{% if request.resolver_match.url_name == 'quotes' %} aria-current="page"{% endif %}>
-							<img class="section-icon" src="{% static 'blog/images/menu-quotes.png' %}" alt="" width="1278" height="1230">
+							<img class="section-icon" src="{% static 'blog/images/menu-quotes.png' %}?v=optimized-20261025" alt="" width="96" height="92">
 							<span>Quotes</span>
 						</a></li>
 					</ul>
@@ -47,4 +47,5 @@
 		</section>
 	</main>
 	<script src="{% static 'blog/js/navigation.js' %}" defer></script>
+	{% block section_scripts %}{% endblock %}
 {% endblock %}

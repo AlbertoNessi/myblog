@@ -11,23 +11,33 @@
 	<ul class="reading-list">
 		{% for book in books %}
 			<li class="reading-item">
-				<p>
-					<a href="{{ book.link }}" target="_blank">
-						<strong>{{ book.title }}</strong>
-					</a>
-				</p>
-
-				{% if book.subtitle %}
-					<p>{{ book.subtitle }}</p>
+				{% if book.cover %}
+					{% with image=book.cover_image %}
+						{# Keep sizes in sync with .book-cover in style.css. #}
+						<img class="book-cover" src="{{ image.url }}"
+							srcset="{{ image.srcset }}" sizes="(max-width: 900px) 72px, 100px"
+							width="{{ image.width }}" height="{{ image.height }}"
+							alt="Cover of {{ book.title }}" loading="lazy" decoding="async">
+					{% endwith %}
 				{% endif %}
-
-				{% if book.link %}
+				<div class="book-details">
 					<p>
-						<a class="book_source" href="{{ book.link }}" target="_blank">Link</a>
+						<strong>{{ book.title }}</strong>
 					</p>
-				{% endif %}
 
-				<p>by {{ book.author }}</p>
+					{% if book.subtitle %}
+						<p>{{ book.subtitle }}</p>
+					{% endif %}
+
+					{% if book.link %}
+						<p>
+							<a class="book_source" href="{{ book.link }}" target="_blank"
+								rel="noopener noreferrer" aria-label="Link for {{ book.title }} (opens in a new tab)">Link</a>
+						</p>
+					{% endif %}
+
+					<p>by {{ book.author }}</p>
+				</div>
 			</li>
 		{% endfor %}
 	</ul>

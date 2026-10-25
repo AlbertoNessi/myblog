@@ -1,4 +1,5 @@
 {% extends 'blog/section_layout.html' %}
+{% load static %}
 
 {% block body_class %}page-home{% endblock %}
 
@@ -13,4 +14,8 @@
 {% block section_content %}
 	{{ profile.introduction|linebreaks }}
 	{{ profile.body|linebreaks }}
+{% endblock %}
+
+{% block section_scripts %}
+	<script src="{% static 'blog/js/profile_portrait.js' %}?v=scale-updates-20261025" defer></script>
 {% endblock %}
