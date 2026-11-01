@@ -12,6 +12,7 @@ Automatic side margins center the grid. Keep the content in its grid column;
 a horizontal transform moves it away from the centered layout.
 
 Only the content column scrolls. The sidebar and footer stay in place.
+On Quotes, only the quote list scrolls; the search panel stays above it.
 The social links align with the bottom of the content box. They stay in
 place when the content scrolls.
 The desktop sidebar has a known limit in wide, short windows. At 915 by 412
@@ -91,6 +92,60 @@ screens. Keep the original artwork outside the published static directory.
 Set the template's width and height to the new file dimensions and update its
 `v` query value so browsers fetch the new image. Run `collectstatic` during
 deployment to publish the optimized files.
+
+## Opening quotes
+
+Click anywhere in a closed quote card's white hover area to open it, including
+the space around the title. The native `summary` contains the card padding,
+so its full area opens and closes the quote without JavaScript. Enter and Space
+work when the summary has keyboard focus.
+
+An open quote keeps its text and source links separate from this control.
+Selecting text or using a source link does not close the quote. Mobile keeps
+its full-width summary and existing spacing.
+
+## Quotes search
+
+On `/quotes`, use Search quotes to find part of an author, title, source URL,
+or quote text. Search ignores letter case and spaces at the start and end of
+the query. Results keep the newest-first order. An empty query or Clear shows
+all quotes. No matches shows "No quotes found."
+
+On desktop (above 900px), the search input and icon are visible, and the Clear
+link is hidden. Empty the input to restore all quotes. The input aligns to the
+right edge of the quote cards. The panel reserves the same scrollbar space as
+the list to keep this edge aligned.
+
+On mobile, the search field is at most 280px wide, with a small search icon,
+the page font, and petrol blue text. It aligns to the right edge of the quote
+cards. Clear appears to the left of the input, so the input's right edge stays
+in place. The accessible input name is "Search quotes".
+
+On mobile, the input and Clear have touch areas at least 44px high. Clear has
+a reserved 44px column, so the input does not move or shrink when text is entered.
+Clear is hidden for an empty query on mobile.
+The input keeps its 16px font and right alignment. The sticky panel has 8px of
+top padding. The input requests a Search key and disables automatic capitalization,
+correction, spelling marks, and saved input suggestions. The browser controls
+the keyboard. The touch sizes follow the
+[W3C target size guidance](https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html).
+
+The search panel is outside the scrolling quote list on desktop. The list can
+receive keyboard focus for scrolling. On mobile, the document still scrolls;
+the search panel stays at the top while the quote section is visible. Its solid
+background keeps the quotes from showing through the search controls.
+
+With JavaScript, results update 250 ms after typing stops. Only the quote list
+is replaced, so the input keeps focus. A new input cancels the previous request.
+Text composition pauses the search until the keyboard commits the text.
+Clear empties the field and filters again without a page reload. On mobile,
+focus stays in the input. Without JavaScript,
+Clear remains a link to the full quote list.
+`quotes_search.js` uses the same GET endpoint and `QuoteSearchService` filter;
+the search rules stay on the server. The URL keeps the current successful query
+in `q`, so it can be bookmarked. Failed requests show an error and keep the last
+results visible. Press Enter to submit the form, including when
+JavaScript is off. No database changes are required.
 
 ## Reading book covers
 

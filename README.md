@@ -9,6 +9,14 @@ when its scale changes, image size limits,
 responsive book cover uploads, clickable Reading cards, and favicon and mobile
 icon configuration.
 
+See [Opening quotes](blog/README.md#opening-quotes) for the full card click area
+and keyboard controls.
+
+See [Quotes search](blog/README.md#quotes-search) for live filtering of quotes by
+author, title, source URL, or text, with compact search controls aligned to the
+list's right edge and visible while scrolling, with larger mobile touch areas.
+Desktop shows the search input without Clear; mobile keeps both controls.
+
 See [Cover storage design](DESIGN.md) for cover validation, file storage,
 stored cover dimensions with read-only admin values, readable filenames,
 replacement cleanup, and failure behavior.

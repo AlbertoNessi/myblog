@@ -2,6 +2,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Books, ProfileContent, Quotes
+from .services import QuoteSearchService
 
 
 def llms_txt(request):
@@ -25,5 +26,7 @@ def reading(request):
 
 
 def quotes(request):
+    query = request.GET.get('q', '').strip()
     quotesDesc = Quotes.objects.all().order_by('-id')
-    return render(request, 'blog/quotes.html', {'quotesDesc': quotesDesc})
+    quotesDesc = QuoteSearchService.filter(quotesDesc, query)
+    return render(request, 'blog/quotes.html', {'quotesDesc': quotesDesc, 'query': query})

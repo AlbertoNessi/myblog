@@ -8,7 +8,18 @@
 {% block mobile_section_title %}Quotes{% endblock %}
 
 {% block section_content %}
-	<ul class="quotes-list">
+	<div class="quotes-search-panel">
+		<form class="quotes-search" action="{% url 'quotes' %}" method="get" role="search">
+			<a href="{% url 'quotes' %}"{% if not query %} data-empty{% endif %}>Clear</a>
+			<div class="quotes-search-field">
+				<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg>
+				<input id="quotes-query" type="search" name="q" value="{{ query }}" aria-label="Search quotes" placeholder="Search quotes…"
+					enterkeyhint="search" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+			</div>
+		</form>
+		<p id="quotes-search-error" role="alert" hidden>Search failed. Press Enter to try again.</p>
+	</div>
+	<ul class="quotes-list" aria-live="polite" tabindex="0" aria-label="Quotes">
 		{% for quote in quotesDesc %}
 			<li class="quote_section" id="quote_{{ quote.id }}">
 				<div class="quote_date">
@@ -42,6 +53,12 @@
 					</div>
 				</details>
 			</li>
+		{% empty %}
+			<li>No quotes found.</li>
 		{% endfor %}
 	</ul>
+{% endblock %}
+
+{% block section_scripts %}
+	<script src="{% static 'blog/js/quotes_search.js' %}?v=desktop-search-only-20261031" defer></script>
 {% endblock %}

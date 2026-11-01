@@ -3,7 +3,23 @@ from pathlib import PurePosixPath
 
 from django.core.files.base import ContentFile
 from django.db import router
+from django.db.models import Q
 from PIL import Image
+
+
+class QuoteSearchService:
+    """Filter quotes by author, title, link, or text. Keep their order."""
+
+    @staticmethod
+    def filter(quotes, query):
+        if not query:
+            return quotes
+        return quotes.filter(
+            Q(author__icontains=query)
+            | Q(title__icontains=query)
+            | Q(link__icontains=query)
+            | Q(text__icontains=query)
+        )
 
 
 class BookCoverService:

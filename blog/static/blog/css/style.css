@@ -218,6 +218,68 @@ footer nav a:hover {
 	margin: 0 0 6px;
 }
 
+.quotes-search-panel {
+	/* Keep the form margin inside the opaque search panel. */
+	display: flow-root;
+	flex-shrink: 0;
+	background: var(--bg);
+}
+
+.quotes-search {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: min(100%, 280px);
+	margin: 0 0 20px auto;
+}
+
+.quotes-search a {
+	font-size: 14px;
+}
+
+.quotes-search-field {
+	position: relative;
+	flex: 1;
+	min-width: 0;
+}
+
+.quotes-search-field svg {
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 16px;
+	height: 16px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.5;
+	pointer-events: none;
+}
+
+.quotes-search input {
+	box-sizing: border-box;
+	width: 100%;
+	min-width: 0;
+	font: inherit;
+	font-size: 16px;
+	line-height: 1.4;
+	color: inherit;
+	background: #fff;
+	border: 1px solid rgba(1, 91, 126, 0.25);
+	border-radius: 10px;
+	padding: 6px 10px 6px 32px;
+}
+
+.quotes-search input::placeholder {
+	color: inherit;
+	opacity: 0.8;
+}
+
+.quotes-search input:focus-visible {
+	outline: 2px solid var(--fg);
+	outline-offset: -2px;
+}
+
 .reading-list,
 .quotes-list {
   list-style: none;
@@ -278,7 +340,7 @@ footer nav a:hover {
 }
 
 .quote_item {
-	cursor: pointer;
+	padding: 0;
 }
 
 .reading-item {
@@ -345,6 +407,8 @@ footer nav a:hover {
 	width: 100%;
 	box-sizing: border-box;
 	min-width: 0;
+	/* Put card spacing on the control so the whole closed card is clickable. */
+	padding: 12px 16px;
 }
 
 .quote_item summary::-webkit-details-marker {
@@ -369,7 +433,7 @@ footer nav a:hover {
 }
 
 .quote_body {
-	margin-top: 12px;
+	padding: 0 16px 12px;
 	width: 100%;
 	box-sizing: border-box;
 	min-width: 0;
@@ -619,6 +683,31 @@ ol{
 		margin-top: 0;
 	}
 
+	.page-quotes .section-content {
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		scrollbar-gutter: auto;
+	}
+
+	.page-quotes .quotes-list {
+		flex: 1;
+		min-height: 0;
+		overflow-y: auto;
+		overscroll-behavior-y: contain;
+		scrollbar-gutter: stable;
+	}
+
+	.page-quotes .quotes-search-panel {
+		/* Match the list gutter so the input and quote cards end together. */
+		overflow-y: hidden;
+		scrollbar-gutter: stable;
+	}
+
+	.quotes-search a {
+		display: none;
+	}
+
 	/* Keep the first card title aligned with the other section content. */
 	.page-reading .section-content,
 	.page-quotes .section-content {
@@ -661,6 +750,43 @@ ol{
 }
 
 @media (max-width: 900px) {
+	.quotes-search-panel {
+		position: sticky;
+		top: env(safe-area-inset-top);
+		z-index: 1;
+		padding-top: 8px;
+	}
+
+	.quotes-search {
+		display: grid;
+		/* Reserve Clear space so typing does not move or resize the input. */
+		grid-template-columns: 44px minmax(0, 1fr);
+		width: min(100%, 332px);
+		margin-bottom: 16px;
+	}
+
+	.quotes-search-field {
+		grid-column: 2;
+		grid-row: 1;
+	}
+
+	.quotes-search input {
+		min-height: 44px;
+	}
+
+	.quotes-search a[data-empty] {
+		display: none;
+	}
+
+	.quotes-search a:not([data-empty]) {
+		grid-column: 1;
+		grid-row: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 44px;
+	}
+
 	/* Allow native bounce and pull-to-refresh on the mobile document. */
 	html, body {
 		overscroll-behavior-y: auto;
@@ -962,7 +1088,6 @@ ol{
 	}
 
 	.quote_item {
-		padding: 0;
 		border-radius: 0;
 		cursor: auto;
 	}
@@ -978,6 +1103,7 @@ ol{
 
 	.quote_item summary {
 		min-height: 48px;
+		padding: 0;
 	}
 
 	.quote_item summary::after {
@@ -999,6 +1125,7 @@ ol{
 
 	.quote_body {
 		margin-top: 20px;
+		padding: 0;
 	}
 
 	.quote_body blockquote {
