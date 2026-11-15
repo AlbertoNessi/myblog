@@ -346,7 +346,7 @@ footer nav a:hover {
 .reading-item {
 	position: relative;
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 	gap: 20px;
 }
 

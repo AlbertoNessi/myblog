@@ -2,6 +2,9 @@
 
 Personal Django website project.
 
+See [Reading book covers](blog/README.md#reading-book-covers) for vertical
+centering of desktop book details beside their covers.
+
 See [Blog layout, colors, CV, and images](blog/README.md) for the shared page
 layout, desktop centering, sidebar spacing, mobile footer placement, CV updates,
 native mobile scrolling, the Profile portrait pull and rebound with updates only

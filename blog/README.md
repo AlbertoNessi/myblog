@@ -159,6 +159,9 @@ JavaScript is off. No database changes are required.
 
 ## Reading book covers
 
+The title, author, and optional subtitle are centered vertically beside the cover
+on desktop.
+
 Each book title is bold and slightly larger: 22px on desktop and 24px on mobile.
 All other book details, including the author and optional subtitle, use italics.
 The author always appears below the title, on desktop and mobile.
