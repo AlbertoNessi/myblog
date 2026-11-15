@@ -13,11 +13,17 @@
 			<li class="reading-item">
 				{% if book.cover %}
 					{% with image=book.cover_image %}
-						{# Keep sizes in sync with .book-cover in style.css. #}
-						<img class="book-cover" src="{{ image.url }}"
-							srcset="{{ image.srcset }}" sizes="(max-width: 900px) 72px, 100px"
-							width="{{ image.width }}" height="{{ image.height }}"
-							alt="Cover of {{ book.title }}" loading="lazy" decoding="async">
+						<span class="book-object">
+							<span class="book-artwork">
+								<span class="book-cover-surface">
+									{# Keep sizes sufficient for the fixed book face. #}
+									<img class="book-cover" src="{{ image.url }}"
+										srcset="{{ image.srcset }}" sizes="(max-width: 900px) 72px, 100px"
+										width="{{ image.width }}" height="{{ image.height }}"
+										alt="Cover of {{ book.title }}" loading="lazy" decoding="async">
+								</span>
+							</span>
+						</span>
 					{% endwith %}
 				{% endif %}
 				<div class="book-details">

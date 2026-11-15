@@ -6,8 +6,10 @@ See [Blog layout, colors, CV, and images](blog/README.md) for the shared page
 layout, desktop centering, sidebar spacing, mobile footer placement, CV updates,
 native mobile scrolling, the Profile portrait pull and rebound with updates only
 when its scale changes, image size limits,
-responsive book cover uploads, clickable Reading cards with larger titles and
-italic details and authors that move below the title when needed, and favicon and mobile
+responsive book cover uploads and a shared fixed 3D book image in lossless WebP
+with a smaller mobile version and cropped covers, clickable Reading cards with
+larger titles and italic details and authors that move below the title when
+needed, and favicon and mobile
 icon configuration.
 
 See [Opening quotes](blog/README.md#opening-quotes) for the full card click area

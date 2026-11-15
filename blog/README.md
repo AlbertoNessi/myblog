@@ -81,11 +81,13 @@ of deployment to update the published copy.
 
 ## Images
 
-The nine shared images in `static/blog/images/` use optimized RGBA PNG files.
+The portrait and icon images in `static/blog/images/` use optimized RGBA PNG files.
 The portrait is 768 pixels wide. Social and CV icons fit within 144 × 144
 pixels. Navigation icons fit within 96 × 96 pixels. Transparency and image
 proportions are preserved. CSS sets the display size, so smaller source files
-do not make the images smaller on the page. The shared files total about 676 KB.
+do not make the images smaller on the page. These files total about 676 KB.
+The shared book mockup described below adds about 32 KiB on mobile or
+130 KiB on desktop. The browser loads one version for the current layout.
 
 When replacing an image, resize it for its display size and allow for Retina
 screens. Keep the original artwork outside the published static directory.
@@ -193,9 +195,46 @@ title does not rename files. A new upload uses the current title and a new
 identifier, so replacements have new URLs. Existing files keep their names
 until the cover is replaced.
 
-Reading shows each cover beside its book details at 100px wide on desktop
-and 72px wide on mobile. At 380px and below, the cover sits above the details
-so long titles have enough room. The full cover remains visible without cropping.
+Reading places each cover on the same fixed book image. The transparent
+`static/blog/images/book-mockup.webp` contains the pages, binding, boards, and
+shadow. Its soft 3D style follows the Reading and CV icons. Each book uses a
+100 by 160px box on desktop and a 72 by 115.2px box on mobile. All books have
+the same shape and thickness. They do not rotate or animate.
+
+The cover fills the front face with a central crop. It keeps its proportions;
+parts near the edges can be hidden. The uploaded files are not changed.
+At 380px and below, the book sits above the details so long titles have room.
+Books without covers show text only.
+
+The artwork uses a fixed 300 by 400 coordinate space. The CSS matrix maps a
+200 by 300 cover to front-face corners (28, 35.8), (259.5, 36.2),
+(259.5, 371), and (28, 371), in clockwise order. One scale changes both the
+background and cover for each viewport. When replacing the image, keep its 3:4
+canvas ratio and update these corners and the matrix together. Keep the narrow
+board rim visible. The image is a lossless WebP at 450 by 600 pixels with
+transparency. Its decoded pixels match the generated PNG. To convert a new
+PNG without changing its pixels or transparent areas, use:
+
+```bash
+cwebp -lossless -z 9 -exact book-mockup.png -o book-mockup.webp
+```
+
+This conversion is a one-time asset preparation step. The application does
+not need an image conversion tool at runtime.
+
+At widths up to 900px, CSS selects `book-mockup-mobile.webp` instead of the
+desktop file. This lossless WebP uses a 216 by 288 canvas, about 32 KiB, for
+the 72 by 96px artwork at screen densities up to 3x. The outer book box still
+uses 72 by 115.2px. All books share one request for this background. Extra
+books add their own responsive cover files, not another background download.
+When replacing the artwork, prepare both files from the same source and
+keep the same canvas ratio and front-face coordinates. For example:
+
+```bash
+sips -z 288 216 book-mockup.png --out book-mockup-mobile.png
+cwebp -lossless -z 9 -exact book-mockup-mobile.png -o book-mockup-mobile.webp
+```
+
 The page uses `srcset` and `sizes` so the browser can select a file for the
 display width and screen density. Widths are 72, 100, 144, 200, 216, and 300
 pixels, up to the saved source width. These cover desktop and mobile screens
@@ -208,7 +247,7 @@ It saves the path and dimensions together. Reading uses these database values
 for HTML dimensions and responsive widths; it does not open image files or
 check storage for each page request. Variant dimensions are calculated from
 the source proportions and the fixed widths. They need no database fields.
-The image files, URLs, display sizes, and browser selection stay the same.
+The storage paths and responsive size rules do not depend on the book mockup.
 
 The book admin shows Cover width and Cover height below the cover preview,
 in pixels and as read-only values. An empty cover shows a dash for each value.
@@ -235,7 +274,8 @@ Run this command before serving the updated Reading template in each
 environment. It creates missing sizes and leaves source files and database
 records unchanged. It can be run again. Page requests do not create files.
 Keep the template's `sizes` value and the service widths in step with the
-desktop and mobile `.book-cover` CSS widths.
+desktop and mobile `.book-object` CSS widths. These sizes also cover the
+narrower front face of the fixed book image.
 
 Books keep their text while their covers are being added. A missing cover
 does not produce a broken image or an empty reserved column.
