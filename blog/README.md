@@ -95,6 +95,14 @@ deployment to publish the optimized files.
 
 ## Opening quotes
 
+Quote subtitles, authors, source links, and quote text use italics.
+Titles keep normal bold type. Dates and search controls keep normal type.
+The author uses the label "By:" and appears beside the title when both fit.
+When space is limited, the author moves below the title. Long titles and
+author names wrap within the card. The author stays visible when the quote
+is closed and is not repeated in the open body. A quote with no author shows
+only its title. The title and author share the native summary control.
+
 Click anywhere in a closed quote card's white hover area to open it, including
 the space around the title. The native `summary` contains the card padding,
 so its full area opens and closes the quote without JavaScript. Enter and Space
@@ -149,7 +157,13 @@ JavaScript is off. No database changes are required.
 
 ## Reading book covers
 
-Each book has one visible Link. The title is plain bold text. The link's
+Each book title is bold and slightly larger: 22px on desktop and 24px on mobile.
+All other book details, including the author and optional subtitle, use italics.
+The author appears to the right of the title when both fit. When space is
+limited, the author moves below the title. Long titles and author names wrap
+within the card. The optional subtitle appears below this title and author row.
+
+The title is the book's single link, with no separate "Link" label. The link's
 click area covers the whole card, including its cover, author, and padding,
 on desktop and mobile. It opens the book's existing URL in a new tab.
 Tab focuses the single link for each book, and Enter opens it. A visible

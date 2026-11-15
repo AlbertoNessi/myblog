@@ -21,22 +21,21 @@
 					{% endwith %}
 				{% endif %}
 				<div class="book-details">
-					<p>
-						<strong>{{ book.title }}</strong>
+					<p class="book-heading">
+						<strong class="book-title">
+							{% if book.link %}
+								<a class="book_source" href="{{ book.link }}" target="_blank"
+									rel="noopener noreferrer" aria-label="{{ book.title }} (opens in a new tab)">{{ book.title }}</a>
+							{% else %}
+								{{ book.title }}
+							{% endif %}
+						</strong>
+						<span class="book-author">by {{ book.author }}</span>
 					</p>
 
 					{% if book.subtitle %}
 						<p>{{ book.subtitle }}</p>
 					{% endif %}
-
-					{% if book.link %}
-						<p>
-							<a class="book_source" href="{{ book.link }}" target="_blank"
-								rel="noopener noreferrer" aria-label="Link for {{ book.title }} (opens in a new tab)">Link</a>
-						</p>
-					{% endif %}
-
-					<p>by {{ book.author }}</p>
 				</div>
 			</li>
 		{% endfor %}

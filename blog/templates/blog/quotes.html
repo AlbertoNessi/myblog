@@ -27,7 +27,12 @@
 				</div>
 				<details class="quote_item">
 					<summary class="quote_title">
-						{{ quote.title }}
+						<span class="quote-heading">
+							<span class="quote-title-text">{{ quote.title }}</span>
+							{% if quote.author %}
+								<span class="quote-author"><span class="quote_meta_label">By:</span> {{ quote.author }}</span>
+							{% endif %}
+						</span>
 					</summary>
 					<div class="quote_body">
 						<div class="quote_meta">
@@ -35,12 +40,6 @@
 								{% if quote.subtitle %}
 									<span class="quote_meta_label">Subtitle:</span>
 									{{ quote.subtitle }}
-								{% endif %}
-							</p>
-							<p class="quote_meta_line">
-								{% if quote.author %}
-									<span class="quote_meta_label">Author:</span>
-									{{ quote.author }}
 								{% endif %}
 							</p>
 							<p class="quote_meta_line">
