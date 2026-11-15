@@ -16,9 +16,9 @@
 						<span class="book-object">
 							<span class="book-artwork">
 								<span class="book-cover-surface">
-									{# Keep sizes sufficient for the fixed book face. #}
+									{# Match the two mobile columns and the fixed desktop face. #}
 									<img class="book-cover" src="{{ image.url }}"
-										srcset="{{ image.srcset }}" sizes="(max-width: 900px) 72px, 100px"
+										srcset="{{ image.srcset }}" sizes="(min-width: 901px) 100px, (min-width: 552px) 240px, (min-width: 392px) 160px, 120px"
 										width="{{ image.width }}" height="{{ image.height }}"
 										alt="Cover of {{ book.title }}" loading="lazy" decoding="async">
 								</span>
@@ -40,7 +40,7 @@
 					</p>
 
 					{% if book.subtitle %}
-						<p>{{ book.subtitle }}</p>
+						<p class="book-subtitle">{{ book.subtitle }}</p>
 					{% endif %}
 				</div>
 			</li>

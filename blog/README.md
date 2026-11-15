@@ -26,6 +26,12 @@ appear when the reader scrolls to the end. They do not cover the content.
 The Profile page has an extra row for its portrait. Keep its content row
 flexible too. Bottom padding includes the device safe area.
 
+The mobile contact footer uses 12px of top padding and 12px of page bottom
+padding, plus the device safe area. Each icon stays in a 48 by 48px box.
+The gap between each icon and its label is 4px. Labels keep their 11px font,
+and each link keeps its minimum height of 64px. These rules apply to all
+four public pages up to 900px. Desktop spacing is separate.
+
 On mobile, `html` and `body` use `overscroll-behavior-y: auto`. This allows
 the browser's native bounce at the top and bottom of the document and its
 pull-to-refresh gesture where supported. The browser controls the animation
@@ -86,8 +92,8 @@ The portrait is 768 pixels wide. Social and CV icons fit within 144 × 144
 pixels. Navigation icons fit within 96 × 96 pixels. Transparency and image
 proportions are preserved. CSS sets the display size, so smaller source files
 do not make the images smaller on the page. These files total about 676 KB.
-The shared book mockup described below adds about 32 KiB on mobile or
-130 KiB on desktop. The browser loads one version for the current layout.
+The shared book mockup described below adds about 130 KiB on desktop and
+mobile. All books share the same background file.
 
 When replacing an image, resize it for its display size and allow for Retina
 screens. Keep the original artwork outside the published static directory.
@@ -144,6 +150,11 @@ The search panel is outside the scrolling quote list on desktop. The list can
 receive keyboard focus for scrolling. On mobile, the document still scrolls;
 the search panel stays at the top while the quote section is visible. Its solid
 background keeps the quotes from showing through the search controls.
+A fixed background also covers the device's top safe area across the viewport.
+It uses the same safe-area height as the sticky panel offset. This stops quote
+text from appearing above the search while the document scrolls. It does not
+change the input position or initial spacing and does not intercept touch events.
+Desktop keeps its existing search layout.
 
 With JavaScript, results update 250 ms after typing stops. Only the quote list
 is replaced, so the input keeps focus. A new input cancels the previous request.
@@ -162,11 +173,24 @@ JavaScript is off. No database changes are required.
 The title, author, and optional subtitle are centered vertically beside the cover
 on desktop.
 
-Each book title is bold and slightly larger: 22px on desktop and 24px on mobile.
-All other book details, including the author and optional subtitle, use italics.
-The author always appears below the title, on desktop and mobile.
-Long titles and author names wrap within the card. The optional subtitle
-appears below the author.
+On desktop (above 900px), Reading shows one book per row with its cover beside
+the details. Titles use bold 22px type. The author appears below the title,
+and the optional subtitle appears below the author. Both use italics.
+
+On mobile (up to 900px), Reading shows two equal columns of large book covers.
+The Reading heading has an 8px bottom margin, 16px less than other sections.
+Books use the same 3D frame, cover placement, and shadow as desktop.
+The book box is 120px wide below 392px, 160px wide from 392px,
+and 240px wide from 552px to 900px. Its 15:22 aspect ratio fits the artwork
+and its top inset without extra space below. The title starts 4px below
+the artwork canvas. The visible book keeps its size and position.
+Each size fits the two-column grid.
+Each cell shows the cover above a centered bold 14px title and a smaller
+12px italic author. Subtitles are hidden. Titles wrap to at most two lines,
+with an ellipsis for longer text and no underline. The full title stays in
+the link's accessible name. Author names wrap within the cell without a
+line limit. The grid uses 24px column gaps and 28px row gaps.
+Books without covers keep their title and author in the same grid.
 
 The title is the book's single link, with no separate "Link" label. The link's
 click area covers the whole card, including its cover, author, and padding,
@@ -201,12 +225,11 @@ until the cover is replaced.
 Reading places each cover on the same fixed book image. The transparent
 `static/blog/images/book-mockup.webp` contains the pages, binding, boards, and
 shadow. Its soft 3D style follows the Reading and CV icons. Each book uses a
-100 by 160px box on desktop and a 72 by 115.2px box on mobile. All books have
+100 by 160px box on desktop and the sizes listed above on mobile. All books have
 the same shape and thickness. They do not rotate or animate.
 
 The cover fills the front face with a central crop. It keeps its proportions;
 parts near the edges can be hidden. The uploaded files are not changed.
-At 380px and below, the book sits above the details so long titles have room.
 Books without covers show text only.
 
 The artwork uses a fixed 300 by 400 coordinate space. The CSS matrix maps a
@@ -225,23 +248,13 @@ cwebp -lossless -z 9 -exact book-mockup.png -o book-mockup.webp
 This conversion is a one-time asset preparation step. The application does
 not need an image conversion tool at runtime.
 
-At widths up to 900px, CSS selects `book-mockup-mobile.webp` instead of the
-desktop file. This lossless WebP uses a 216 by 288 canvas, about 32 KiB, for
-the 72 by 96px artwork at screen densities up to 3x. The outer book box still
-uses 72 by 115.2px. All books share one request for this background. Extra
-books add their own responsive cover files, not another background download.
-When replacing the artwork, prepare both files from the same source and
-keep the same canvas ratio and front-face coordinates. For example:
-
-```bash
-sips -z 288 216 book-mockup.png --out book-mockup-mobile.png
-cwebp -lossless -z 9 -exact book-mockup-mobile.png -o book-mockup-mobile.webp
-```
-
 The page uses `srcset` and `sizes` so the browser can select a file for the
 display width and screen density. Widths are 72, 100, 144, 200, 216, and 300
-pixels, up to the saved source width. These cover desktop and mobile screens
-at densities up to 3x. Small sources are never enlarged. HTML dimensions
+pixels, up to the saved source width. When the source is wider than these
+variants, it is also an explicit candidate at its stored width. This lets
+large mobile covers use the existing source on high-density screens without
+new image generation. Detail is limited by the saved source resolution.
+Small sources are never enlarged during preparation. HTML dimensions
 reserve space for the image before it loads.
 
 Each book stores `cover_width` and `cover_height` for its saved source JPEG.
@@ -277,7 +290,7 @@ Run this command before serving the updated Reading template in each
 environment. It creates missing sizes and leaves source files and database
 records unchanged. It can be run again. Page requests do not create files.
 Keep the template's `sizes` value and the service widths in step with the
-desktop and mobile `.book-object` CSS widths. These sizes also cover the
+desktop and mobile `.book-object` CSS widths. Desktop sizes also cover the
 narrower front face of the fixed book image.
 
 Books keep their text while their covers are being added. A missing cover

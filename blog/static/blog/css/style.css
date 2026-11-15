@@ -465,16 +465,6 @@ footer nav a:hover {
 	font-style: italic;
 }
 
-@media (max-width: 380px) {
-	.reading-item {
-		flex-direction: column;
-	}
-
-	.book-details {
-		width: 100%;
-	}
-}
-
 .reading-item:hover,
 .quote_item:hover {
 	background-color: #FFFFFF;
@@ -835,10 +825,23 @@ ol{
 
 @media (max-width: 900px) {
 	.quotes-search-panel {
+		--quotes-safe-area-top: env(safe-area-inset-top);
 		position: sticky;
-		top: env(safe-area-inset-top);
+		top: var(--quotes-safe-area-top);
 		z-index: 1;
 		padding-top: 8px;
+	}
+
+	.quotes-search-panel::before {
+		/* Cover the device safe area without moving the search controls. */
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: var(--quotes-safe-area-top);
+		background: var(--bg);
+		pointer-events: none;
 	}
 
 	.quotes-search {
@@ -885,7 +888,7 @@ ol{
 		box-sizing: border-box;
 		min-height: 100dvh;
 		padding-top: env(safe-area-inset-top);
-		padding-bottom: calc(24px + env(safe-area-inset-bottom));
+		padding-bottom: calc(12px + env(safe-area-inset-bottom));
 		-webkit-text-size-adjust: 100%;
 		text-size-adjust: 100%;
 	}
@@ -1071,6 +1074,10 @@ ol{
 		line-height: 1.15;
 	}
 
+	.page-reading .mobile-section-title {
+		margin-bottom: 8px;
+	}
+
 	.page-home .mobile-section-title {
 		display: none;
 	}
@@ -1100,14 +1107,14 @@ ol{
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 		gap: 8px;
 		margin: 8px 0 0;
-		padding: 24px 0 0;
+		padding: 12px 0 0;
 		border-top: 1px solid var(--mobile-rule);
 	}
 
 	.social-button {
 		flex-direction: column;
 		justify-content: center;
-		gap: 8px;
+		gap: 4px;
 		min-height: 64px;
 		font-family: Arial, Helvetica, sans-serif;
 		font-size: 11px;
@@ -1118,38 +1125,64 @@ ol{
 		padding: 0;
 	}
 
+	.reading-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 28px 24px;
+	}
+
 	.reading-item {
-		margin: 0 0 16px;
-		padding: 20px;
-		border: 1px solid var(--mobile-rule);
-		border-radius: 16px;
-		background: #fff;
-		gap: 16px;
+		flex-direction: column;
+		align-items: center;
+		margin: 0;
+		padding: 8px 0;
+		gap: 4px;
+		text-align: center;
 	}
 
 	.book-object {
-		--book-scale: 0.24;
-		width: 72px;
-		height: 115.2px;
+		--book-scale: 0.4;
+		width: 120px;
+		height: auto;
+		/* Fit the 300 by 400 artwork and its 40px top inset. */
+		aspect-ratio: 15 / 22;
 	}
 
 	.book-artwork {
-		background-image: url("../images/book-mockup-mobile.webp");
+		/* Keep the artwork in place when the book box becomes shorter. */
+		top: 9.0909090909%;
+	}
+
+	.book-details {
+		width: 100%;
+		flex: none;
+	}
+
+	.book-heading {
+		align-items: center;
 	}
 
 	.book-title {
-		font-size: 24px;
+		font-size: 14px;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+	}
+
+	.section-content .book_source {
+		text-decoration: none;
 	}
 
 	.book-author {
-		font-size: 16px;
+		font-size: 12px;
+	}
+
+	.book-subtitle {
+		display: none;
 	}
 
 	.reading-item p {
-		margin-bottom: 12px;
-	}
-
-	.reading-item p:last-child {
 		margin: 0;
 	}
 
@@ -1241,6 +1274,21 @@ ol{
 
 	.quote-author {
 		font-size: 15px;
+	}
+}
+
+/* Each size fits two columns with 48px page padding and a 24px column gap. */
+@media (min-width: 392px) and (max-width: 900px) {
+	.book-object {
+		--book-scale: 0.5333333333;
+		width: 160px;
+	}
+}
+
+@media (min-width: 552px) and (max-width: 900px) {
+	.book-object {
+		--book-scale: 0.8;
+		width: 240px;
 	}
 }
 

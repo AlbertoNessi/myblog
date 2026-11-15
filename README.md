@@ -6,13 +6,16 @@ See [Reading book covers](blog/README.md#reading-book-covers) for vertical
 centering of desktop book details beside their covers.
 
 See [Blog layout, colors, CV, and images](blog/README.md) for the shared page
-layout, desktop centering, sidebar spacing, mobile footer placement, CV updates,
+layout, desktop centering, sidebar spacing, compact mobile footer spacing with
+48px contact icons and device safe-area padding, CV updates,
 native mobile scrolling, the Profile portrait pull and rebound with updates only
 when its scale changes, image size limits,
-responsive book cover uploads and a shared fixed 3D book image in lossless WebP
-with a smaller mobile version and cropped covers, clickable Reading cards with
-larger titles and italic details and authors always below the title, and favicon and mobile
-icon configuration.
+responsive book cover uploads, the same fixed 3D book image on desktop and
+mobile, clickable Reading cards with
+desktop titles and italic details, a mobile library grid close to the Reading
+heading with two large covers per row,
+centered titles close to their covers and limited to two lines without underlines, small italic authors,
+and favicon and mobile icon configuration.
 
 See [Opening quotes](blog/README.md#opening-quotes) for the full card click area
 and keyboard controls, with normal dates, italic text, and authors beside
@@ -21,6 +24,8 @@ bold titles or below them when space is limited.
 See [Quotes search](blog/README.md#quotes-search) for live filtering of quotes by
 author, title, source URL, or text, with compact search controls aligned to the
 list's right edge and visible while scrolling, with larger mobile touch areas.
+The mobile search background also covers the top device safe area so quote
+text cannot appear above the search panel during scrolling.
 Desktop shows the search input without Clear; mobile keeps both controls.
 
 See [Cover storage design](DESIGN.md) for cover validation, file storage,

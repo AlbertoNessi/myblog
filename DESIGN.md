@@ -43,7 +43,14 @@ in the database. The service owns dimension accuracy; clients cannot edit
 these values through the admin form.
 
 Responsive widths are 72, 100, 144, 200, 216, and 300 pixels. They cover
-72px mobile images and 100px desktop images at densities up to 3x. Smaller
+100px desktop images at densities up to 3x. The mobile library shows two
+columns of 3D books up to 240px wide. Desktop and mobile use the same static
+background and cover mapping. Only the display scale changes. If the saved
+source is wider than the largest prepared variant, its URL and stored width are also included in
+`srcset`. This is an explicit image candidate for larger displays, independent
+of whether a variant exists. The browser selects the candidate; the service
+does not test file existence or replace missing variants. Source resolution
+limits the available detail. No new files are needed for this layout. Smaller
 sources cap these widths and duplicate widths are removed. File names and
 HTML width descriptors use the actual output width. No image is enlarged
 or cropped. The source file is preserved.

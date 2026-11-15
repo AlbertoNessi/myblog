@@ -25,7 +25,7 @@ class QuoteSearchService:
 class BookCoverService:
     """Prepare cover sizes before a book is saved and describe them for HTML."""
 
-    # Keep these widths sufficient for the CSS sizes at densities up to 3x.
+    # Larger displays can use the saved source as an image candidate.
     WIDTHS = (72, 100, 144, 200, 216, 300)
 
     @classmethod
@@ -110,12 +110,14 @@ class BookCoverService:
 
     @classmethod
     def image_sources(cls, cover, width, height):
-        """Describe prepared sizes with stored dimensions. Do not open image files."""
+        """Describe image candidates with stored dimensions. Do not open files."""
         widths = cls.widths_for(width)
         sources = []
         for candidate in widths:
             url = cover.storage.url(cls.variant_name(cover, candidate))
             sources.append(f"{url} {candidate}w")
+        if width > max(widths):
+            sources.append(f"{cover.url} {width}w")
         return {
             "url": cover.storage.url(cls.variant_name(cover, min(100, width))),
             "srcset": ", ".join(sources),
