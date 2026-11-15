@@ -8,8 +8,8 @@ centering of desktop book details beside their covers.
 See [Blog layout, colors, CV, and images](blog/README.md) for the shared page
 layout, desktop centering, sidebar spacing, compact mobile footer spacing with
 48px contact icons and device safe-area padding, CV updates,
-native mobile scrolling, the Profile portrait pull and rebound with updates only
-when its scale changes, image size limits,
+native mobile scrolling with a fixed-size Profile portrait during bounce,
+image size limits,
 responsive book cover uploads, the same fixed 3D book image on desktop and
 mobile, clickable Reading cards with
 desktop titles and italic details, a mobile library grid close to the Reading

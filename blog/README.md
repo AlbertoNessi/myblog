@@ -38,33 +38,10 @@ pull-to-refresh gesture where supported. The browser controls the animation
 and refresh indicator. The site does not add a custom loading animation.
 Desktop keeps its separate content scrolling rules.
 
-The mobile Profile portrait grows while one finger pulls down at the page top.
-The Profile-only `profile_portrait.js` measures finger movement with passive
-touch events. It does not depend on negative scroll offsets: Safari can keep
-the document at 0 while its refresh indicator is visible. Each 40px of pull
-adds 10%, up to 15%. A gesture that starts below the top must first use its
-initial scroll distance before it can enlarge the portrait.
-Updates use at most one pending animation frame. There is no polling loop or
-CSS transition while the finger moves. A frame is requested only when the
-visible scale changes. Normal scrolling and continued pulls at the 15% limit
-do not request more frames. On release, a pull of at least 8px
-starts a 340ms rebound: the photo grows by 4% to 15%, briefly contracts by
-1.5%, and returns to its normal size. The final touch position is used even
-when the gesture ends before the next frame. This keeps fast pulls visible.
-Safari's negative scroll offsets also trigger one rebound when momentum
-reaches the page top after release. Scroll events do not restart a running
-rebound. There is at most one return animation and one pending touch frame.
-A new touch cancels the return animation. Cancellation, page restore, layout
-changes, and Reduce Motion clear pending work before it can restore an old scale.
-The image keeps its proportions and grows from its center. Its layout size
-stays fixed, so the text does not move. Normal scrolling and the bottom-edge
-bounce do not enlarge it.
-The effect is off above 900px and when Reduce Motion is enabled. Multi-touch
-gestures clear the effect and keep pinch zoom available.
-No touch gesture is cancelled; native scrolling and pull-to-refresh stay active.
-The rebound uses the browser's [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate).
-See the [WebKit passive event guidance](https://webkit.org/blog/8216/new-webkit-features-in-safari-11-1/#passive-event-listeners)
-for the scrolling behavior of these listeners.
+The mobile Profile portrait keeps its displayed size during scrolling,
+pull-down gestures, and native bounce. It has no custom touch or scroll
+animation. Its responsive size still follows the viewport. Native scrolling,
+pull-to-refresh, and pinch zoom remain available where the browser supports them.
 
 ## Colors and footer
 
