@@ -1297,12 +1297,3 @@ ol{
 		width: 240px;
 	}
 }
-
-@media (max-width: 900px) and (prefers-reduced-motion: no-preference) {
-	.profile-portrait #profile-pic {
-		/* Keep the page layout in place while the portrait grows. */
-		transform-origin: center;
-		transform: scale(var(--portrait-pull-scale, 1));
-		will-change: transform;
-	}
-}
