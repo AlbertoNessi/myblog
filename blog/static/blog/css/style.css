@@ -369,12 +369,52 @@ footer nav a:hover {
 	outline: none;
 }
 
-.book-cover {
+.book-object {
+	--book-scale: 0.3333333333;
+	position: relative;
 	display: block;
 	width: 100px;
-	height: auto;
+	height: 160px;
 	flex: 0 0 auto;
+	pointer-events: none;
+}
+
+/* Scale the image and its cover as one unit. Keep the map in source units. */
+.book-artwork {
+	position: absolute;
+	top: 8.3333333333%;
+	left: 0;
+	width: 300px;
+	height: 400px;
+	background: url("../images/book-mockup.webp") center / 100% 100% no-repeat;
+	transform: scale(var(--book-scale));
+	transform-origin: top left;
+}
+
+/* Map a 200 by 300 cover to the blank face. Update this map with the image. */
+.book-cover-surface {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 200px;
+	height: 300px;
+	overflow: hidden;
 	border-radius: 3px;
+	transform-origin: top left;
+	transform: matrix3d(
+		1.159050179, 0.002216248507, 0, 0.000005973715651,
+		0, 1.117333333, 0, 0,
+		0, 0, 1, 0,
+		28, 35.8, 0, 1
+	);
+}
+
+.book-cover {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
 }
 
 .book-details {
@@ -1087,8 +1127,14 @@ ol{
 		gap: 16px;
 	}
 
-	.book-cover {
+	.book-object {
+		--book-scale: 0.24;
 		width: 72px;
+		height: 115.2px;
+	}
+
+	.book-artwork {
+		background-image: url("../images/book-mockup-mobile.webp");
 	}
 
 	.book-title {
