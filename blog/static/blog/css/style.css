@@ -965,7 +965,7 @@ ol{
 		grid-row: 4;
 	}
 
-	.menu-toggle:not([hidden]) {
+	.js .menu-toggle:not([hidden]) {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -1012,11 +1012,17 @@ ol{
 		box-sizing: border-box;
 	}
 
-	.section-menu.has-menu .section-navigation {
+	.js .section-navigation {
 		position: absolute;
 		top: calc(100% + 8px);
 		right: 0;
 		width: min(100%, 320px);
+		/* Keep the menu closed before the deferred controls are ready. */
+		visibility: hidden;
+	}
+
+	.js .section-menu.has-menu .section-navigation {
+		visibility: visible;
 	}
 
 	.section-navigation ul {

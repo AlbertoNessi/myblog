@@ -2,6 +2,12 @@
 
 Personal Django website project.
 
+See [Images](blog/README.md#images) for the lossless responsive portrait and
+[Mobile navigation](blog/README.md#mobile-navigation) for a stable initial
+menu layout with navigation available when JavaScript is disabled or fails
+to load. See [Public page startup](DESIGN.md#public-page-startup) for ownership
+of image sizes and the menu's initial state.
+
 See [Reading book covers](blog/README.md#reading-book-covers) for vertical
 centering of desktop book details beside their covers.
 

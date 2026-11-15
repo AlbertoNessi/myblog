@@ -39,6 +39,7 @@
 		updateNavigation(false);
 	});
 
-	menu.classList.add('has-menu');
+	// Set the closed state before the menu can become visible.
 	updateNavigation(false);
+	menu.classList.add('has-menu');
 }

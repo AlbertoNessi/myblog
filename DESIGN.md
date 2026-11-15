@@ -119,3 +119,24 @@ stops at a confirmed replacement or Clear; it does not scan for or guess
 the ownership of older orphaned files. Those need explicit maintenance
 after reference checks and backup. Deleting a book record does not trigger
 this replacement cleanup.
+
+## Public page startup
+
+The portrait is a static asset. Six prepared lossless WebP candidates keep
+the original transparency and proportions. The full-size candidate preserves
+the source RGBA pixels. The shared template owns the candidate list and
+HTML dimensions; CSS owns the display size. The Home include selects the
+large mobile sizes, and other includes select the header sizes. The browser
+chooses a candidate from its viewport and screen density. Page requests do
+not resize or encode images. Asset updates must keep CSS sizes and template
+sizes in step. The original PNG remains available as the source.
+
+A small head script sets the root `js` marker before the render-blocking CSS.
+On mobile, CSS uses it to reserve the menu button and keep the closed menu
+outside the content flow before the navigation controller loads. The controller
+sets the closed state before exposing the enhanced menu. Its initialization
+does not move the content. With JavaScript off, navigation stays in normal
+flow and its links remain usable. A navigation-script load failure removes
+the marker and restores this plain navigation. Desktop keeps its sidebar.
+This preserves the existing visual layout and avoids a new dependency or a
+server-side device decision.

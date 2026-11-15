@@ -6,6 +6,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+		{# Set this before CSS loads so the mobile menu starts outside the page flow. #}
+		<script>document.documentElement.classList.add('js');</script>
 		
 		<title>{% block title %}Alberto Nessi {% endblock %}</title>
 
@@ -14,8 +16,8 @@
 		<link rel="apple-touch-icon" sizes="180x180" href="{% static 'blog/icons/apple-touch-icon.png' %}?v=20261025">
 		<link rel="manifest" href="{% static 'blog/icons/site.webmanifest' %}?v=20261025">
 		
-		{# Use a new CSS URL so browsers load the centered Reading details. #}
-		<link rel="stylesheet" href="{% static 'blog/css/style.css' %}?v=reading-desktop-center-20261115">
+		{# Use a new CSS URL so browsers load the stable mobile menu rules. #}
+		<link rel="stylesheet" href="{% static 'blog/css/style.css' %}?v=stable-mobile-menu-20261115">
 		
 	</head>
 	<body class="{% block body_class %}{% endblock %}">

@@ -66,6 +66,19 @@ The rebound uses the browser's [Web Animations API](https://developer.mozilla.or
 See the [WebKit passive event guidance](https://webkit.org/blog/8216/new-webkit-features-in-safari-11-1/#passive-event-listeners)
 for the scrolling behavior of these listeners.
 
+## Mobile navigation
+
+The head sets a `js` class on the root element before CSS loads. Up to 900px,
+this class shows the menu button and keeps the closed menu outside the page
+flow from the first paint. The page content does not move when the deferred
+navigation script starts. The script sets the closed state before it adds
+`has-menu`. Mouse, touch, Space, Escape, and outside clicks keep the existing
+behavior. Desktop keeps its visible sidebar navigation.
+
+With JavaScript disabled, the button stays hidden and the navigation links
+stay visible in the page flow. If the navigation script cannot load, its
+error handler removes `js` and restores these same links.
+
 ## Colors and footer
 
 All public pages use a fixed light grey background (`#F2F3F4`).
@@ -87,11 +100,23 @@ of deployment to update the published copy.
 
 ## Images
 
-The portrait and icon images in `static/blog/images/` use optimized RGBA PNG files.
-The portrait is 768 pixels wide. Social and CV icons fit within 144 × 144
-pixels. Navigation icons fit within 96 × 96 pixels. Transparency and image
-proportions are preserved. CSS sets the display size, so smaller source files
-do not make the images smaller on the page. These files total about 676 KB.
+The portrait uses six lossless WebP files in `static/blog/images/`, with widths
+of 144, 216, 320, 512, 640, and 768 pixels. The original RGBA PNG is kept as
+the source. The 768px WebP has the same decoded pixels as this source.
+Smaller files use Lanczos resizing and lossless encoding, with transparency
+and proportions preserved. Their sizes range from about 23 KB to 402 KB,
+compared with the 567 KB source. The browser downloads one suitable candidate,
+not the full set.
+
+`includes/profile_portrait.html` keeps the original image ID, alt text, and
+768 by 869 HTML dimensions. The Home include passes `large_portrait=True`
+to select sizes for the large mobile portrait. Other pages use the 72px
+mobile header size. Desktop sizes follow the existing viewport-height rule.
+Keep these `sizes` values aligned with the CSS if the layout changes.
+The portrait remains eagerly loaded. Its CSS size and appearance do not change.
+
+Social and CV icons keep their optimized RGBA PNG files within 144 by 144
+pixels. Navigation icons fit within 96 by 96 pixels. CSS sets their display size.
 The shared book mockup described below adds about 130 KiB on desktop and
 mobile. All books share the same background file.
 
@@ -99,7 +124,9 @@ When replacing an image, resize it for its display size and allow for Retina
 screens. Keep the original artwork outside the published static directory.
 Set the template's width and height to the new file dimensions and update its
 `v` query value so browsers fetch the new image. Run `collectstatic` during
-deployment to publish the optimized files.
+deployment to publish the optimized files. To replace the portrait, prepare
+all six widths from the same source without enlargement, then encode each
+resized PNG with `cwebp -lossless -z 9 -exact`. Keep the original source too.
 
 ## Opening quotes
 

@@ -10,7 +10,7 @@
 					{% block header_portrait %}
 						{% include "blog/includes/profile_portrait.html" %}
 					{% endblock %}
-					<button class="menu-toggle" id="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="section-navigation" hidden>
+					<button class="menu-toggle" id="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="section-navigation">
 						<svg class="menu-open-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
 						<svg class="menu-close-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg>
 					</button>
@@ -46,6 +46,7 @@
 			{% block section_content %}{% endblock %}
 		</section>
 	</main>
-	<script src="{% static 'blog/js/navigation.js' %}" defer></script>
+	<script src="{% static 'blog/js/navigation.js' %}?v=stable-mobile-menu-20261115" defer
+		onerror="document.documentElement.classList.remove('js')"></script>
 	{% block section_scripts %}{% endblock %}
 {% endblock %}

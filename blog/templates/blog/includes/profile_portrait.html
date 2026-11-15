@@ -1,7 +1,14 @@
 {% load static %}
 <a class="profile-home" href="{% url 'index' %}" aria-label="Home">
 	<img
-		src="{% static 'blog/images/alberto_nessi_profile_image.png' %}?v=optimized-20261025"
+		src="{% static 'blog/images/alberto_nessi_profile_image-768.webp' %}"
+		srcset="{% static 'blog/images/alberto_nessi_profile_image-144.webp' %} 144w,
+			{% static 'blog/images/alberto_nessi_profile_image-216.webp' %} 216w,
+			{% static 'blog/images/alberto_nessi_profile_image-320.webp' %} 320w,
+			{% static 'blog/images/alberto_nessi_profile_image-512.webp' %} 512w,
+			{% static 'blog/images/alberto_nessi_profile_image-640.webp' %} 640w,
+			{% static 'blog/images/alberto_nessi_profile_image-768.webp' %} 768w"
+		sizes="{% if large_portrait %}(max-width: 900px) min(33.333svh, calc(100vw - 48px)),{% else %}(max-width: 900px) 72px,{% endif %} clamp(64px, calc(100dvh - 640px), 160px)"
 		alt="Alberto Nessi"
 		id="profile-pic"
 		width="768"
