@@ -159,9 +159,9 @@ JavaScript is off. No database changes are required.
 
 Each book title is bold and slightly larger: 22px on desktop and 24px on mobile.
 All other book details, including the author and optional subtitle, use italics.
-The author appears to the right of the title when both fit. When space is
-limited, the author moves below the title. Long titles and author names wrap
-within the card. The optional subtitle appears below this title and author row.
+The author always appears below the title, on desktop and mobile.
+Long titles and author names wrap within the card. The optional subtitle
+appears below the author.
 
 The title is the book's single link, with no separate "Link" label. The link's
 click area covers the whole card, including its cover, author, and padding,

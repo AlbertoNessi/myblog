@@ -7,7 +7,7 @@ layout, desktop centering, sidebar spacing, mobile footer placement, CV updates,
 native mobile scrolling, the Profile portrait pull and rebound with updates only
 when its scale changes, image size limits,
 responsive book cover uploads, clickable Reading cards with larger titles and
-italic details and authors that move below the title when needed, and favicon and mobile
+italic details and authors always below the title, and favicon and mobile
 icon configuration.
 
 See [Opening quotes](blog/README.md#opening-quotes) for the full card click area

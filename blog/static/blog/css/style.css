@@ -391,6 +391,11 @@ footer nav a:hover {
 	gap: 4px 0.65em;
 }
 
+.book-heading {
+	flex-direction: column;
+	align-items: flex-start;
+}
+
 .book-title,
 .book-author,
 .quote-title-text,
